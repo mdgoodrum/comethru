@@ -1,0 +1,165 @@
+* UI
+Login / Create Account / Landing
+Event Feed (pretty much everything will be a version of this -- just plug in a
+different list of events depending on the situation. even the hosts would use
+this page, just with an extra button for edit/create)
+Create Events
+Event Detail Page
+Account Management
+* Features
+** MVP
+- payment service? allow people to subscribe and stuff.
+- geolocation to find nearby events (background or foreground)
+- check in at events
+- push notifications from us
+- a main event feed
+  - check off tags on signup and use that as the seed for the event feed
+- a detail view page for events
+- a page specific to each venue or host
+- heart events / save for later / maybe going
+- a way for people to get their deals / free shit
+- venue editor, event editor
+  - info about parking/transportation
+- filter events
+
+** Not MVP
+- analytics dashboard
+- sell banner ads
+- a map to view events
+- subscribe to hosts
+- a calendar
+- internal rewards for using the app (tied to checking in?)
+- recommendation algorithms
+  - use google adsense
+  - use fb
+  - use what your friends on the site like
+- hook into existing ad platforms
+- paid subscription for users where they can get special deals with restaurants
+  - more free stuff
+  - 5% off
+  - skip the lines
+
+- friends system (invite, network effect)
+- 'groups' for an event. you and your squad can make a group so you know which
+  of your friends is going to a thing.
+- at first, keep them more venmo-like. not really for talking or networking,
+  just see what events your friends are going to and coordinate.
+
+* Data
+an event has:
+- a thumbnail
+- a title
+- a description
+- flags (21+? free? etc)
+- tags
+- an owner (i.e. an organizer)
+- a reward
+
+an organizer has:
+- events
+- followers?
+- a name
+- administrative data
+- a rating? this might be dangerous -- ratings tend to centralize the app around
+  ratings and put you into yelp territory. maybe just thumbs up/thumbs down with
+  a word count minimum to review...?
+
+a user has:
+- interested events
+- attended events
+- a name
+- administrative data (email, phone number)
+
+some kind of operations we're going to wanna do:
+- query a user's preferences, then get the best matching N events
+- query all events that pass N filters
+- tie events to users in different states (interested, going, etc)
+- fetch all information about a specific event
+- create relationships between users (friends, attended event, etc)
+- perform events at time intervals relative to events (e.g. notify 24h before)
+- query all of X kind of thing that belongs to a user/organizer (events,
+  followers, ratings, etc)
+* Questions
+should we give rewards to anyone who shows up? why limit it to one person? if
+it's profitable for the bar to give one person free shit, it'll probably be
+profitable for them to give everyone free shit. because everyone will spend more
+money than they're given at the bar.
+
+1. login screen and accounts. set up database for users and organizers.
+   - how is account auth handled? 3rd party or handrolled?
+   - basic database setup for users and organizers
+   - easy to get some code working and get comfortable with
+     frameworks/debugging/etc
+   - prob will need to connect to our database
+2. make a skeleton organizer dashboard.
+   - more database setup for organizer and events
+   - figure out how api endpoints will work
+3. make the main user screen that looks at all events.
+   - hard
+   - lots of moving parts
+   - start with naive recommendation algorithm
+4. filtering / search.
+   - way more api endpoints
+   - flesh out the server
+* Tech
+Django + RN + AWS
+* Goals
+
+* Links
+How to set up Postgresql
+https://www.robinwieruch.de/postgres-sql-macos-setup/
+
+pg_dump / pg_restore
+https://stackoverflow.com/questions/1237725/copying-postgresql-database-to-another-server
+
+A quick overview of what you need to deploy a Django application to production
+https://vsupalov.com/django-runserver-in-production/
+
+Custom endpoints with Python decorators in DRF
+https://www.django-rest-framework.org/api-guide/viewsets/#marking-extra-actions-for-routing
+
+ViewSets, a way to quickly map API to models and generate views for them.
+https://www.django-rest-framework.org/api-guide/viewsets/#viewsets
+* Setup
+Substitute pip with pip3 and python with python3 if you're on a machine that works like that.
+
+You can run all of these from the top level directory.
+
+brew install postgresql
+initdb /usr/local/var/postgres
+pg_ctl -D /usr/local/var/postgres start
+
+createdb 
+# Here, you'll either need to grab a copy of the database or we'll need to have a server somewhere.
+
+python -m venv venv
+source venv/bin/activate
+pip install django psycopg2 virtualenv
+
+python manage.py createsuperuser
+python manage.py runserver localhost:8080
+
+Visit localhost:8000/admin and enter your super user credentials. If it works,
+the database is set up!
+
+This will run the development server that Django serves from:
+python manage.py runserver
+* spader
+would be nice to expose the backend on a true blue web server so we could share test
+data easily. that'd require spinning up an AWS instance, configuring environment
+variables and packages on said instance, probably configuring nginx, adding wsgi
+configuration to django app. also adding a mux between local/server on the
+frontend because you're not always gonna want to hit the server. the alternative
+to this is to temporarily keep separate copies of the database, and sync up with
+pg_dump / pg_restore when we really need to share. let's go with that one.
+
+add django-rest-framework on top of the API. alternative is tastypie, but the
+former is more well supported and has a nice web viewer kind of thing going for
+it. that'll just allow us to query all the shit we've got in our database with a
+normal looking API. should be quite easy to set up.
+
+- get postgres installed on everyone's stuff
+- get django installed on everyones stuff
+- export the database
+- run the backend on everyone's machine
+- commit stuff
