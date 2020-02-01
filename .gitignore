@@ -59,3 +59,5 @@ buck-out/
 /ios/Pods/
 
 /django/venv
+
+**/__pycache__

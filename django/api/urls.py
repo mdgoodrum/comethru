@@ -1,7 +1,7 @@
 from django.urls import path
-
-from . import views
+from rest_framework.urlpatterns import format_suffix_patterns
+from api.views import *
 
 urlpatterns = [
-    path(route='', view=views.index, name='index')
+    path(route='', view=Default, name='index'),
 ]

@@ -25,11 +25,10 @@ router.register(r'django_users', DjangoUserViewSet)
 router.register(r'groups', DjangoGroupViewSet)
 router.register(r'users', UserViewSet)
 router.register(r'events', EventViewSet)
+router.register(r'venues', VenueViewSet)
 
 urlpatterns = [
-    #path('admin/', admin.site.urls),
     path('admin/', admin_site.urls),
-    path('api/', include('api.urls')),
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

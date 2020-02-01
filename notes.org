@@ -115,30 +115,18 @@ https://stackoverflow.com/questions/1237725/copying-postgresql-database-to-anoth
 A quick overview of what you need to deploy a Django application to production
 https://vsupalov.com/django-runserver-in-production/
 
-Custom endpoints with Python decorators in DRF
-https://www.django-rest-framework.org/api-guide/viewsets/#marking-extra-actions-for-routing
-
-ViewSets, a way to quickly map API to models and generate views for them.
-https://www.django-rest-framework.org/api-guide/viewsets/#viewsets
-
-A nice explanation of a reverse relationship in Django, and useful options regarding them.
-https://stackoverflow.com/questions/17328910/django-what-is-reverse-relationship
 * Setup
 Substitute pip with pip3 and python with python3 if you're on a machine that works like that.
 
 You can run all of these from the top level directory.
 
 brew install postgresql
+pip install django psycopg2 virtualenv
 initdb /usr/local/var/postgres
 pg_ctl -D /usr/local/var/postgres start
-
-createdb 
 # Here, you'll either need to grab a copy of the database or we'll need to have a server somewhere.
-
-python -m venv venv
-source venv/bin/activate
-pip install django psycopg2 djangorestframework
-
+virtualenv comethru_venv
+source comethru_venv/bin/activate
 python manage.py createsuperuser
 python manage.py runserver localhost:8080
 
@@ -147,16 +135,6 @@ the database is set up!
 
 This will run the development server that Django serves from:
 python manage.py runserver
-
-CREATE USER comethru_admin WITH PASSWORD 'fourscoreandseven';
-ALTER ROLE comethru_admin SET client_encoding TO 'utf8';
-ALTER ROLE comethru_admin SET default_transaction_isolation TO 'read committed'; (edited) 
-ALTER ROLE comethru_admin SET timezone TO 'UTC';
-ALTER ROLE comethru_admin WITH superuser;
-CREATE DATABASE comethru;
-GRANT ALL PRIVILEGES ON DATABASE comethru to comethru_admin;
-
-
 * spader
 would be nice to expose the backend on a true blue web server so we could share test
 data easily. that'd require spinning up an AWS instance, configuring environment
@@ -171,6 +149,6 @@ former is more well supported and has a nice web viewer kind of thing going for
 it. that'll just allow us to query all the shit we've got in our database with a
 normal looking API. should be quite easy to set up.
 
-* SQL stuff
-ALTER ROLE ${role_name} WITH ${FIELD_TO_CHANGE} 'value'
-\du
+
+
+

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import *
+from api.models import *
 
 class DjangoUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -15,9 +15,14 @@ class DjangoGroupSerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields=['name', 'email', 'phone_number']
+        fields = ['name', 'email', 'phone_number']
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
-        fields = ['title', 'date_published', 'description', 'twenty_one']
+        fields = ['title', 'date_published', 'description', 'twenty_one', 'organizer']
+
+class VenueSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Venue
+        fields = ['name', 'address', 'twenty_one']
