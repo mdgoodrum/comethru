@@ -21,6 +21,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+
 # Android/IntelliJ
 #
 build/
@@ -56,8 +57,9 @@ buck-out/
 *.jsbundle
 
 # CocoaPods
-/ios/Pods/
+react-native/ios/Pods/
 
 /django/venv
 
 **/__pycache__
+**/.vscode

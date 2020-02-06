@@ -103,6 +103,8 @@ money than they're given at the bar.
    - flesh out the server
 * Tech
 Django + RN + AWS
+
+Firebase Analytics
 * Goals
 
 * Links
