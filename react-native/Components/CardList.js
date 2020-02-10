@@ -1,21 +1,18 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 
 import InfoCard from './InfoCard';
 
 export default class CardList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cards: this.props.cards,
-    };
   }
 
   renderCards = () => {
     return (
       <View style={styles.smallImagesContainer}>
-        {this.state.cards.map((card, key) => {
-          return <InfoCard key={key} description={card} />;
+        {this.props.events.map((event, key) => {
+          return <InfoCard data={event}></InfoCard>
         })}
       </View>
     );
