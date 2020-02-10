@@ -6,69 +6,90 @@
  * @flow
  */
 
-import React from 'react';
-import {SafeAreaView, StyleSheet, StatusBar, Text} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import React, {Component} from 'react';
+import { NativeRouter, Route } from 'react-router-native';
+import {StyleSheet, View, ScrollView, SafeAreaView} from 'react-native';
 const axios = require('axios');
 
-const App: () => React$Node = () => {
-  axios
-    .get('http://127.0.0.1:8000/api/users/3/')
-    .then(response => {
-      console.log("Success!")
-      console.log(response)
-    })
-    .catch(error => {
-      console.log("Failure :(")
-      console.log(error)
-    })
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Text>comethru</Text>
-        </SafeAreaView>
-    </>
-  );
-};
+import ImageDisplay from './Components/ImageDisplay';
+import InfoCard from './Components/InfoCard';
+import CardList from './Components/CardList';
+import EventDetail from './Components/EventDetail';
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  container: {
+    flex: 1,
+    backgroundColor: '#ebf0f7',
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  content: {
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 20,
   },
 });
 
-export default App;
+class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      product: {
+        name: "Best CS meetup you'll ever attend!",
+        images: [
+          'https://specials-images.forbesimg.com/imageserve/5c76bcaaa7ea43100043c836/416x416.jpg?background=000000&cropX1=387&cropX2=1729&cropY1=118&cropY2=1460',
+          'https://i.insider.com/590f3a2452b5d8525d8b479d?width=1100&format=jpeg&auto=webp',
+          'https://vignette.wikia.nocookie.net/matrix/images/3/32/Neo.jpg/revision/latest/top-crop/width/360/height/360?cb=20060715235228',
+        ],
+      },
+      events: []
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get('http://127.0.0.1:8000/api/events/')
+      .then(response => {
+        this.setState({ events: response.data});
+        console.log("Got events!")
+      })
+      .catch(error => {
+        console.log("Failed to retrieve event data.")
+        console.log(error)
+      })
+  }
+
+  render() {
+    console.log("Rendering App")
+    return (
+      <View style={styles.container}>
+        <ScrollView style={styles.content}>
+          <ImageDisplay
+            name={this.state.product.name}
+            images={this.state.product.images}
+          />
+          <CardList 
+            events={this.state.events} 
+          />
+        </ScrollView>
+      </View>
+    )
+  }
+}
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <NativeRouter>
+        <SafeAreaView style={styles.container}>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/detail" component={props => <EventDetail {...props} />} />
+        </SafeAreaView>
+      </NativeRouter>
+    );
+  }
+}
+
