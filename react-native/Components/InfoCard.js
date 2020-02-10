@@ -5,13 +5,14 @@ import { Link } from 'react-router-native';
 export default class InfoCard extends Component {
   constructor(props) {
     super(props);
+    console.log(props.data)
   }
 
   render() {
     return (
       <Link to={{
         pathname: "/detail",
-        props: {
+        state: {
           data: this.props.data
         }
       }}>
