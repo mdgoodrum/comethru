@@ -103,6 +103,8 @@ money than they're given at the bar.
    - flesh out the server
 * Tech
 Django + RN + AWS
+
+Firebase Analytics
 * Goals
 
 * Links
@@ -123,13 +125,20 @@ https://www.django-rest-framework.org/api-guide/viewsets/#viewsets
 
 A nice explanation of a reverse relationship in Django, and useful options regarding them.
 https://stackoverflow.com/questions/17328910/django-what-is-reverse-relationship
+
+How to do non-anonymous sessions
+http://gavinballard.com/associating-django-users-sessions/
 * Setup
 Substitute pip with pip3 and python with python3 if you're on a machine that works like that.
 
 You can run all of these from the top level directory.
 
 brew install postgresql
+
+# Section off some disk space for Postgres to create databases. Store the metadata in the given folder.
 initdb /usr/local/var/postgres
+
+# Start up the cluster that's in this folder.
 pg_ctl -D /usr/local/var/postgres start
 
 createdb 

@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def Default(request):
-    return HttpResponse("Hello, world! You've reached the comethru API.")
+def Index(request):
+    count_visits = request.session.get("count_visits", 0)
+    request.session['count_visits'] = count_visits + 1
+
+    return HttpResponse(f"You've reached the comethru API. You've visited it {str(count_visits)} times!")
 
 
 from django.contrib.auth.models import Group

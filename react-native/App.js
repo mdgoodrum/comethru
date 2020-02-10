@@ -7,15 +7,27 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StyleSheet, StatusBar} from 'react-native';
-
+import {SafeAreaView, StyleSheet, StatusBar, Text} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+const axios = require('axios');
 
 const App: () => React$Node = () => {
+  axios
+    .get('http://127.0.0.1:8000/api/users/3/')
+    .then(response => {
+      console.log("Success!")
+      console.log(response)
+    })
+    .catch(error => {
+      console.log("Failure :(")
+      console.log(error)
+    })
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>comethru</SafeAreaView>
+      <SafeAreaView>
+        <Text>comethru</Text>
+        </SafeAreaView>
     </>
   );
 };
