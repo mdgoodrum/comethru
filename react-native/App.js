@@ -6,13 +6,9 @@
  * @flow
  */
 
-import React from 'react';
-import {SafeAreaView, StyleSheet, StatusBar, Text} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-const axios = require('axios');
-
 import React, {Component} from 'react';
 import {StyleSheet, View, ScrollView, SafeAreaView} from 'react-native';
+const axios = require('axios');
 
 import ImageDisplay from './Components/ImageDisplay';
 import InfoCard from './Components/InfoCard';
