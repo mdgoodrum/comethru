@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import { NativeRouter, Route } from 'react-router-native';
+import {NativeRouter, Route} from 'react-router-native';
 import {StyleSheet, View, ScrollView, SafeAreaView} from 'react-native';
 const axios = require('axios');
 
@@ -41,7 +41,7 @@ class Home extends Component {
           'https://vignette.wikia.nocookie.net/matrix/images/3/32/Neo.jpg/revision/latest/top-crop/width/360/height/360?cb=20060715235228',
         ],
       },
-      events: []
+      events: [],
     };
   }
 
@@ -49,17 +49,17 @@ class Home extends Component {
     axios
       .get('http://127.0.0.1:8000/api/events/')
       .then(response => {
-        this.setState({ events: response.data});
-        console.log("Got events!")
+        this.setState({events: response.data});
+        console.log('Got events!');
       })
       .catch(error => {
-        console.log("Failed to retrieve event data.")
-        console.log(error)
-      })
+        console.log('Failed to retrieve event data.');
+        console.log(error);
+      });
   }
 
   render() {
-    console.log("Rendering App")
+    console.log('Rendering App');
     return (
       <View style={styles.container}>
         <ScrollView style={styles.content}>
@@ -67,12 +67,10 @@ class Home extends Component {
             name={this.state.product.name}
             images={this.state.product.images}
           />
-          <CardList 
-            events={this.state.events} 
-          />
+          <CardList events={this.state.events} />
         </ScrollView>
       </View>
-    )
+    );
   }
 }
 
@@ -86,10 +84,13 @@ export default class App extends Component {
       <NativeRouter>
         <SafeAreaView style={styles.container}>
           <Route exact path="/" component={Home} />
-          <Route exact path="/detail" component={props => <EventDetail {...props} />} />
+          <Route
+            exact
+            path="/detail"
+            component={props => <EventDetail {...props} />}
+          />
         </SafeAreaView>
       </NativeRouter>
     );
   }
 }
-

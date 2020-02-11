@@ -12,7 +12,7 @@ export default class CardList extends Component {
     return (
       <View style={styles.smallImagesContainer}>
         {this.props.events.map((event, key) => {
-          return <InfoCard data={event}></InfoCard>
+          return <InfoCard key={key} data={event} />;
         })}
       </View>
     );

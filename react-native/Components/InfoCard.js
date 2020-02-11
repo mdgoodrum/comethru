@@ -1,21 +1,22 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import { Link } from 'react-router-native';
+import {Link} from 'react-router-native';
 
 export default class InfoCard extends Component {
   constructor(props) {
     super(props);
-    console.log(props.data)
+    console.log(props.data);
   }
 
   render() {
     return (
-      <Link to={{
-        pathname: "/detail",
-        state: {
-          data: this.props.data
-        }
-      }}>
+      <Link
+        to={{
+          pathname: '/detail',
+          state: {
+            data: this.props.data,
+          },
+        }}>
         <View style={styles.card}>
           <View style={styles.cardHeader}>
             <Text style={styles.cardTitle}>Description</Text>
@@ -27,7 +28,6 @@ export default class InfoCard extends Component {
           </View>
         </View>
       </Link>
-
     );
   }
 }
