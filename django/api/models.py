@@ -23,6 +23,8 @@ class Event(models.Model):
     tags = models.ManyToManyField('Tag', related_name='tags')
     organizer = models.ForeignKey('User', on_delete=models.CASCADE, related_name='organizer')
     venue = models.ForeignKey('Venue', on_delete=models.SET_NULL, related_name='venue', null=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
 
     def __str__(self):
         return self.title

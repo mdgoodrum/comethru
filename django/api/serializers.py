@@ -20,7 +20,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
-        fields = ['title', 'date_published', 'description', 'twenty_one', 'organizer']
+        fields = ['title', 'date_published', 'description', 'twenty_one', 'organizer', 'venue', 'start_time', 'end_time']
 
 class VenueSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
