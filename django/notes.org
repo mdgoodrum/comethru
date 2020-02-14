@@ -128,6 +128,12 @@ https://stackoverflow.com/questions/17328910/django-what-is-reverse-relationship
 
 How to do non-anonymous sessions
 http://gavinballard.com/associating-django-users-sessions/
+
+Basic thing showing how to do routing with WSGI
+https://oz123.github.io/advanced-python/book/routing.html
+
+The simplest WSGI middleware
+https://adamj.eu/tech/2019/05/27/the-simplest-wsgi-middleware/
 * Setup
 Substitute pip with pip3 and python with python3 if you're on a machine that works like that.
 

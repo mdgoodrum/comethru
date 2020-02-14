@@ -19,6 +19,7 @@ from rest_framework import routers
 
 from api.admin import admin_site
 from api.views import *
+from api.endpoints.authorize import Authorize
 
 router = routers.DefaultRouter()
 router.register(r'django_users', DjangoUserViewSet)
@@ -30,7 +31,8 @@ router.register(r'venues', VenueViewSet)
 urlpatterns = [
     path('', Index),
     path('admin/', admin_site.urls),
-    path('api/', include(router.urls)),
+    path('api/models/', include(router.urls)),
+    path('api/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
