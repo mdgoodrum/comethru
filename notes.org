@@ -149,10 +149,26 @@ sudo apt-get install libpq-dev
 sudo apt-get install python3-pip
 sudo apt-get install python3-dev
 sudo apt-get install python-psycopg2
+
 pip install django djangorestframework psycopg2 gunicorn
+
 sudo -u postgres psql
 CREATE DATABASE comethru;
 CREATE USER comethru_admin WITH PASSWORD 'fourscoreandseven';
+ALTER ROLE comethru_admin SET client_encoding TO 'utf8';
+ALTER ROLE comethru_admin SET default_transaction_isolation TO 'read committed'; (edited) 
+ALTER ROLE comethru_admin SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE comethru to comethru_admin;
+
+sudo ufw allow OpenSSH
+sudo ufw allow 8000
+sudo ufw enable
+
+Add a custom TCP rule on AWS to inbound allow traffic on port 8000, so that our server can...serve.
+Make a systemd service to expose a socket for gunicorn
+Make a systemd service to run gunicorn as a daemon and bind to that socket
+
+Add nginx configuration to proxy for gunicorn
 * spader
 would be nice to expose the backend on a true blue web server so we could share test
 data easily. that'd require spinning up an AWS instance, configuring environment
