@@ -11,6 +11,10 @@ import {NativeRouter, Route} from 'react-router-native';
 import {StyleSheet, View, ScrollView, SafeAreaView} from 'react-native';
 const axios = require('axios');
 
+import {apiEndpoint} from './API'
+
+import { BackgroundGray } from './Pallet'
+
 import ImageDisplay from './Components/ImageDisplay';
 import InfoCard from './Components/InfoCard';
 import CardList from './Components/CardList';
@@ -19,7 +23,7 @@ import EventDetail from './Components/EventDetail';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ebf0f7',
+    backgroundColor: BackgroundGray,
   },
   content: {
     marginLeft: 10,
@@ -47,7 +51,7 @@ class Home extends Component {
 
   componentDidMount() {
     axios
-      .get('http://127.0.0.1:8000/api/events/')
+      .get(apiEndpoint('/models/events/'))
       .then(response => {
         this.setState({events: response.data});
         console.log('Got events!');
@@ -73,6 +77,7 @@ class Home extends Component {
     );
   }
 }
+
 
 export default class App extends Component {
   constructor(props) {

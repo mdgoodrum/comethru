@@ -116,8 +116,10 @@ A quick overview of what you need to deploy a Django application to production
 https://vsupalov.com/django-runserver-in-production/
 
 
-The production bible.
+The production bibles.
+https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
 https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
 
 * Setup
 Substitute pip with pip3 and python with python3 if you're on a machine that works like that.
@@ -169,6 +171,9 @@ Make a systemd service to expose a socket for gunicorn
 Make a systemd service to run gunicorn as a daemon and bind to that socket
 
 Add nginx configuration to proxy for gunicorn
+
+sudo ufw delete allow 800
+sudo ufw allow 'Nginx Full'
 * spader
 would be nice to expose the backend on a true blue web server so we could share test
 data easily. that'd require spinning up an AWS instance, configuring environment
