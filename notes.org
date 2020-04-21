@@ -115,6 +115,12 @@ https://stackoverflow.com/questions/1237725/copying-postgresql-database-to-anoth
 A quick overview of what you need to deploy a Django application to production
 https://vsupalov.com/django-runserver-in-production/
 
+
+The production bibles.
+https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
+https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
+
 * Setup
 Substitute pip with pip3 and python with python3 if you're on a machine that works like that.
 
@@ -135,6 +141,39 @@ the database is set up!
 
 This will run the development server that Django serves from:
 python manage.py runserver
+
+download voidstar.pem
+brew install openssh
+ssh -i voidstar.pem ubuntu@ec2-18-220-160-63.us-east-2.compute.amazonaws.com
+
+** stuff i had to do on aws
+sudo apt-get install libpq-dev
+sudo apt-get install python3-pip
+sudo apt-get install python3-dev
+sudo apt-get install python-psycopg2
+
+pip install django djangorestframework psycopg2 gunicorn
+
+sudo -u postgres psql
+CREATE DATABASE comethru;
+CREATE USER comethru_admin WITH PASSWORD 'fourscoreandseven';
+ALTER ROLE comethru_admin SET client_encoding TO 'utf8';
+ALTER ROLE comethru_admin SET default_transaction_isolation TO 'read committed'; (edited) 
+ALTER ROLE comethru_admin SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE comethru to comethru_admin;
+
+sudo ufw allow OpenSSH
+sudo ufw allow 8000
+sudo ufw enable
+
+Add a custom TCP rule on AWS to inbound allow traffic on port 8000, so that our server can...serve.
+Make a systemd service to expose a socket for gunicorn
+Make a systemd service to run gunicorn as a daemon and bind to that socket
+
+Add nginx configuration to proxy for gunicorn
+
+sudo ufw delete allow 800
+sudo ufw allow 'Nginx Full'
 * spader
 would be nice to expose the backend on a true blue web server so we could share test
 data easily. that'd require spinning up an AWS instance, configuring environment
