@@ -31,8 +31,22 @@ class Event(models.Model):
 
 class Venue(models.Model):
     name = models.TextField()
-    address = models.TextField()
+    address = models.ForeignKey('Address', related_name='address', on_delete=models.SET_NULL, null=True)
     twenty_one = models.BooleanField()
 
     def __str__(self):
         return self.name
+
+# https://endswithsaurus.wordpress.com/2009/07/23/a-lesson-in-address-storage/
+class Address(models.Model):
+    street_number = models.IntegerField()
+    street_name = models.TextField()
+    street_type = models.TextField()
+    street_direction = models.TextField()
+    address_type = models.TextField()
+    address_type_id = models.TextField()
+    minor_municipality = models.TextField()
+    major_municipality = models.TextField()
+    governing_district = models.TextField()
+    postal_area = models.TextField()
+    country = models.TextField()

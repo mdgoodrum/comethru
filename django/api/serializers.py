@@ -26,3 +26,34 @@ class VenueSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Venue
         fields = ['name', 'address', 'twenty_one']
+
+class AddressSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Venue
+        fields = ['name', 'address', 'twenty_one']
+        fields = [
+            'street_number',
+            'street_name',
+            'street_type',
+            'street_direction',
+            'address_type',
+            'address_type_id',
+            'minor_municipality',
+            'major_municipality',
+            'governing_district',
+            'postal_area',
+            'country'
+        ]
+        fields = [
+                street_number = models.IntegerField()
+    street_name = models.TextField()
+    street_type = models.TextField()
+    street_direction = models.TextField()
+    address_type = models.TextField()
+    address_type_id = models.TextField()
+    minor_municipality = models.TextField()
+    major_municipality = models.TextField()
+    governing_district = models.TextField()
+    postal_area = models.TextField()
+    country = models.TextField
+        ]

@@ -189,3 +189,6 @@ normal looking API. should be quite easy to set up.
 * SQL stuff
 ALTER ROLE ${role_name} WITH ${FIELD_TO_CHANGE} 'value'
 \du
+
+createdb comethru
+dropdb comethru
