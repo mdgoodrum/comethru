@@ -188,6 +188,12 @@ former is more well supported and has a nice web viewer kind of thing going for
 it. that'll just allow us to query all the shit we've got in our database with a
 normal looking API. should be quite easy to set up.
 
+The CSS box model works like this: The innermost box is your content. Wrapping
+that is a box called padding. Next, there is the border. The border separates
+your content from other content. Padding separates your content from the
+border. The last thing is the margin. Margin separates the whole shebang from
+other whole shebangs. 
 
-
-
+Here's another CSS thing: When you're using flexbox, justify-content is used to
+align along the flex axis, and align-items is used to align along the cross
+axis. 

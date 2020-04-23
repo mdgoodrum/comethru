@@ -18,6 +18,7 @@ class Tag(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=128)
     date_published = models.DateTimeField()
+    short_description = models.TextField()
     description = models.TextField()
     twenty_one = models.BooleanField()
     tags = models.ManyToManyField('Tag', related_name='tags')
@@ -42,11 +43,14 @@ class Address(models.Model):
     street_number = models.IntegerField()
     street_name = models.TextField()
     street_type = models.TextField()
-    street_direction = models.TextField()
-    address_type = models.TextField()
-    address_type_id = models.TextField()
-    minor_municipality = models.TextField()
+    street_direction = models.TextField(blank=True)
+    address_type = models.TextField(blank=True)
+    address_type_id = models.TextField(blank=True)
+    minor_municipality = models.TextField(blank=True)
     major_municipality = models.TextField()
     governing_district = models.TextField()
     postal_area = models.TextField()
     country = models.TextField()
+
+    def __str__(self):
+        return str(self.street_number) + " " + self.street_name + " " + self.street_type

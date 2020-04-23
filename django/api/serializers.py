@@ -20,7 +20,17 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
-        fields = ['title', 'date_published', 'description', 'twenty_one', 'organizer', 'venue', 'start_time', 'end_time']
+        fields = [
+            'title', 
+            'date_published', 
+            'short_description', 
+            'description', 
+            'twenty_one', 
+            'organizer', 
+            'venue', 
+            'start_time', 
+            'end_time'
+        ]
 
 class VenueSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -43,17 +53,4 @@ class AddressSerializer(serializers.HyperlinkedModelSerializer):
             'governing_district',
             'postal_area',
             'country'
-        ]
-        fields = [
-                street_number = models.IntegerField()
-    street_name = models.TextField()
-    street_type = models.TextField()
-    street_direction = models.TextField()
-    address_type = models.TextField()
-    address_type_id = models.TextField()
-    minor_municipality = models.TextField()
-    major_municipality = models.TextField()
-    governing_district = models.TextField()
-    postal_area = models.TextField()
-    country = models.TextField
         ]

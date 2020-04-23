@@ -13,5 +13,6 @@ admin_site.register(User)
 admin_site.register(Tag)
 admin_site.register(Event)
 admin_site.register(Venue)
+admin_site.register(Address)
 
 
