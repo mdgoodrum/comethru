@@ -7,7 +7,8 @@ First, install PSQL with `brew install postgresql`. Then, create a database clus
 
 Once that's done, you need to start the database cluster. *If you reboot, you will need to start up the cluster again*. The backend won't work otherwise. Do so with `pg_ctl -D /usr/local/var/postgres start`.
 
-# Here, you'll either need to grab a copy of the database or we'll need to have a server somewhere.
+Here, you'll either need to grab a copy of the database or we'll need to have a server somewhere.
+
 Next, make the database with `createdb comethru`. If you can wrangle a copy of someone else's, you can load it with PSQL. Otherwise, we'll build it from scratch.
 
 Always be safe and use a virtual environment, kids.
