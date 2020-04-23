@@ -15,7 +15,7 @@ Always be safe and use a virtual environment, kids.
 ```
 python -m venv venv
 source venv/bin/activate
-pip install django psycopg2 djangorestframework
+pip install django psycopg2 djangorestframework djangoextensions
 ```
 
 Create a user for yourself with `python manage.py createsuperuser`.
