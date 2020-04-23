@@ -7,7 +7,8 @@ First, install PSQL with `brew install postgresql`. Then, create a database clus
 
 Once that's done, you need to start the database cluster. *If you reboot, you will need to start up the cluster again*. The backend won't work otherwise. Do so with `pg_ctl -D /usr/local/var/postgres start`.
 
-# Here, you'll either need to grab a copy of the database or we'll need to have a server somewhere.
+Here, you'll either need to grab a copy of the database or we'll need to have a server somewhere.
+
 Next, make the database with `createdb comethru`. If you can wrangle a copy of someone else's, you can load it with PSQL. Otherwise, we'll build it from scratch.
 
 Always be safe and use a virtual environment, kids.
@@ -19,7 +20,7 @@ pip install django psycopg2 djangorestframework
 
 Create a user for yourself with `python manage.py createsuperuser`.
 
-Finally, fire up the server with `python manage.py runserver localhost:8080`. 
+Finally, fire up the server with `python manage.py runserver localhost:8000`. 
 
 Visit localhost:8000/admin and enter your super user credentials. If it works,
 the database is set up!
@@ -39,11 +40,14 @@ GRANT ALL PRIVILEGES ON DATABASE comethru to comethru_admin;
 ```
 cd react-native && npm install
 cd ios && pod install
-npm run start
 ```
 
 # Running
 `npm run ios` will run the backand and bundler in a new terminal, and fire up the simulator.
+
+`npm run backend` will run just the backend.
+
+`react-native run-ios` will run just the frontend.
 
 You can also run through XCode by selecting `comethru.xcworkspace` and using the play/stop buttons.
 
