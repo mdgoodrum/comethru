@@ -20,7 +20,7 @@ pip install django psycopg2 djangorestframework
 
 Create a user for yourself with `python manage.py createsuperuser`.
 
-Finally, fire up the server with `python manage.py runserver localhost:8080`. 
+Finally, fire up the server with `python manage.py runserver localhost:8000`. 
 
 Visit localhost:8000/admin and enter your super user credentials. If it works,
 the database is set up!
@@ -40,11 +40,14 @@ GRANT ALL PRIVILEGES ON DATABASE comethru to comethru_admin;
 ```
 cd react-native && npm install
 cd ios && pod install
-npm run start
 ```
 
 # Running
 `npm run ios` will run the backand and bundler in a new terminal, and fire up the simulator.
+
+`npm run backend` will run just the backend.
+
+`react-native run-ios` will run just the frontend.
 
 You can also run through XCode by selecting `comethru.xcworkspace` and using the play/stop buttons.
 
