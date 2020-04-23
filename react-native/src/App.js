@@ -14,6 +14,7 @@ import { BackgroundGray } from './Pallet'
 
 import EventDetail from './Components/EventDetail';
 import Home from './Components/Home';
+import Login from './Components/Login';
 
 export default class App extends Component {
   constructor(props) {
@@ -24,10 +25,18 @@ export default class App extends Component {
     return (
       <NativeRouter>
         <SafeAreaView style={styles.container}>
-          <Route exact path="/" component={Home} />
           <Route
             exact
-            path="/detail"
+            path='/'
+            component={Login}
+          />
+          <Route
+            exact
+            path='/home'
+            component={Home} />
+          <Route
+            exact
+            path='/detail'
             component={props => <EventDetail {...props} />}
           />
         </SafeAreaView>
