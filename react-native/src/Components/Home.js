@@ -32,7 +32,6 @@ export default class Home extends Component {
     }
 
     render() {
-        console.log('Rendering App');
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.content}>

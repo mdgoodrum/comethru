@@ -22,7 +22,7 @@ from api.views import *
 from api.endpoints.authorize import Authorize
 
 router = routers.DefaultRouter()
-router.register(r'django_users', DjangoUserViewSet)
+router.register(r'django_users', UserViewSet)
 router.register(r'groups', DjangoGroupViewSet)
 router.register(r'users', UserViewSet)
 router.register(r'events', EventViewSet)

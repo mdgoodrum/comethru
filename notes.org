@@ -197,3 +197,14 @@ other whole shebangs.
 Here's another CSS thing: When you're using flexbox, justify-content is used to
 align along the flex axis, and align-items is used to align along the cross
 axis. 
+
+The most concise way to remember how _this_ binds in JS functions. In normal
+functions, it'll refer to the _callee_'s this pointer. In arrow functions, it'll
+refer to the _caller_'s. It's a little more complicated than that -- really,
+arrow functions are just capturing the current lexical scope and using that. So
+if there are a couple callers passing down an arrow function, it's not quite
+accurate to say THE caller's this pointer. But it makes enough sense. 
+
+It's okay to send passwords over plaintext if you're using HTTPS:
+https://security.stackexchange.com/questions/110415/is-it-ok-to-send-plain-text-password-over-https
+
