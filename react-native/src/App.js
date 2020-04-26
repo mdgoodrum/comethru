@@ -15,6 +15,7 @@ import { BackgroundGray } from './Pallet'
 import EventDetail from './Components/EventDetail';
 import Home from './Components/Home';
 import Login from './Components/Login';
+import SignUp from './Components/SignUp';
 
 export default class App extends Component {
   constructor(props) {
@@ -34,6 +35,11 @@ export default class App extends Component {
             exact
             path='/home'
             component={Home} />
+          <Route
+            exact
+            path='/signup'
+            component={SignUp} />
+
           <Route
             exact
             path='/detail'

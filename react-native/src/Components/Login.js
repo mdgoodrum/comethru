@@ -12,8 +12,7 @@ export default class Login extends Component {
 
         this.state = {
             username: "",
-            password: "",
-            authenticated: false
+            password: ""
         }
     }
 
@@ -33,26 +32,27 @@ export default class Login extends Component {
         axios
             .post(apiEndpoint('/authorize/'), {username: this.state.username, password: this.state.password})
             .then(response => {
-                console.log('good!')
-                this.setState({
-                    authenticated: true
-                })
+                this.props.history.push('/home')
             })
             .catch(error => {
+                // @spader @debug
                 console.log('bad :(')
                 console.log(error)
             });
+    }
 
+    onPressSignUp() {
+        this.props.history.push('/signup')
     }
 
     render() {
-        return this.state.authenticated ? 
-        (
-            <Redirect to={{pathname: '/home'}} />) : 
-        (
+        return (
             <View style={styles.content}>
                 <View style={styles.topBar}>
-                    <TouchableOpacity style={styles.signUpButton}>
+                    <TouchableOpacity   
+                      style={styles.signUpButton}
+                      onPress={() => this.onPressSignUp()}
+                    >
                         <Text style={styles.signUpButtonText}>sign up!</Text>
                     </TouchableOpacity>
                 </View>
@@ -107,10 +107,11 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginRight: '5%',
         height: '75%',
+        minHeight: '75%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     signUpButtonText: {
         color: '#fff',
@@ -141,8 +142,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        maxHeight: '5%',
-        width: '100%',
+        minHeight: '5%',
+        width: '100%'
     },
     logoContainer: {
         flexDirection: 'row',
@@ -172,8 +173,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         height: '40%',
-        borderColor: 'red',
-        borderWidth: 1,
 
     },
     usernameAndPasswordEntry: {
