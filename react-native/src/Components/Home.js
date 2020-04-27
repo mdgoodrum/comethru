@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, View, ScrollView, SafeAreaView, TouchableOpacity, Text } from 'react-native';
 const axios = require('axios');
 
 import { apiEndpoint } from '../API'
 
-import { BackgroundGray } from '../Pallet'
+import { BackgroundGray, MainOrange } from '../Pallet'
 
 import CardList from './CardList';
 
@@ -16,6 +16,10 @@ export default class Home extends Component {
         this.state = {
             events: [],
         };
+    }
+
+    onPressCreateEvent() {
+        this.props.history.push('/createevent')
     }
 
     componentDidMount() {
@@ -37,6 +41,14 @@ export default class Home extends Component {
                 <ScrollView style={styles.content}>
                     <CardList events={this.state.events} />
                 </ScrollView>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity   
+                        style={styles.myButton}
+                        onPress={() => this.onPressCreateEvent()}
+                        >
+                        <Text style={styles.createEventButtonText}>Create Event</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
@@ -50,5 +62,23 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginTop: 20,
+    },
+    buttonContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    myButton: {
+        height: 80,
+        width: 80,
+        borderRadius: 160,
+        backgroundColor: MainOrange,
+        justifyContent: 'center',
+    },
+    createEventButtonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontStyle: 'italic',
     },
 });
