@@ -1,2 +1,3 @@
-export const MainOrange = '#c37609';
-export const BackgroundGray = '#ebf0f7';
+export const MainOrange = '#d68009'
+export const BackgroundGray = '#ebf0f7'
+export const FooterGray = '#5c5b59'

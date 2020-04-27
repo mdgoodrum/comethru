@@ -91,15 +91,11 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         flexDirection: 'column',
-    },
-    debug: {
-        borderColor: 'red',
-        borderWidth: 1
+
     },
     description: {
         textAlign: 'left',
-        marginLeft: '5%',
-        marginRight: '5%',
+        margin: '5%',
     },
     title: {
         textAlign: 'center',
@@ -112,8 +108,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '20%',
-        width: '100%',
+        height: '30%',
+        minHeight: '30%',
+        width: '100%'
     },
     image: {
         height: '80%',
