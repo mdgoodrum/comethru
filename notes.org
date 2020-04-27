@@ -1,11 +1,3 @@
-* UI
-Login / Create Account / Landing
-Event Feed (pretty much everything will be a version of this -- just plug in a
-different list of events depending on the situation. even the hosts would use
-this page, just with an extra button for edit/create)
-Create Events
-Event Detail Page
-Account Management
 * Features
 ** MVP
 - payment service? allow people to subscribe and stuff.
@@ -101,10 +93,6 @@ money than they're given at the bar.
 4. filtering / search.
    - way more api endpoints
    - flesh out the server
-* Tech
-Django + RN + AWS
-* Goals
-
 * Links
 How to set up Postgresql
 https://www.robinwieruch.de/postgres-sql-macos-setup/
@@ -121,30 +109,26 @@ https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubunt
 https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04
 https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
 
-* Setup
-Substitute pip with pip3 and python with python3 if you're on a machine that works like that.
+* spader
+The CSS box model works like this: The innermost box is your content. Wrapping
+that is a box called padding. Next, there is the border. The border separates
+your content from other content. Padding separates your content from the
+border. The last thing is the margin. Margin separates the whole shebang from
+other whole shebangs. 
 
-You can run all of these from the top level directory.
+Here's another CSS thing: When you're using flexbox, justify-content is used to
+align along the flex axis, and align-items is used to align along the cross
+axis. 
 
-brew install postgresql
-pip install django psycopg2 virtualenv
-initdb /usr/local/var/postgres
-pg_ctl -D /usr/local/var/postgres start
-# Here, you'll either need to grab a copy of the database or we'll need to have a server somewhere.
-virtualenv comethru_venv
-source comethru_venv/bin/activate
-python manage.py createsuperuser
-python manage.py runserver localhost:8080
+The most concise way to remember how _this_ binds in JS functions. In normal
+functions, it'll refer to the _callee_'s this pointer. In arrow functions, it'll
+refer to the _caller_'s. It's a little more complicated than that -- really,
+arrow functions are just capturing the current lexical scope and using that. So
+if there are a couple callers passing down an arrow function, it's not quite
+accurate to say THE caller's this pointer. But it makes enough sense. 
 
-Visit localhost:8000/admin and enter your super user credentials. If it works,
-the database is set up!
-
-This will run the development server that Django serves from:
-python manage.py runserver
-
-download voidstar.pem
-brew install openssh
-ssh -i voidstar.pem ubuntu@ec2-18-220-160-63.us-east-2.compute.amazonaws.com
+It's okay to send passwords over plaintext if you're using HTTPS:
+https://security.stackexchange.com/questions/110415/is-it-ok-to-send-plain-text-password-over-https
 
 ** stuff i had to do on aws
 sudo apt-get install libpq-dev
@@ -174,37 +158,3 @@ Add nginx configuration to proxy for gunicorn
 
 sudo ufw delete allow 800
 sudo ufw allow 'Nginx Full'
-* spader
-would be nice to expose the backend on a true blue web server so we could share test
-data easily. that'd require spinning up an AWS instance, configuring environment
-variables and packages on said instance, probably configuring nginx, adding wsgi
-configuration to django app. also adding a mux between local/server on the
-frontend because you're not always gonna want to hit the server. the alternative
-to this is to temporarily keep separate copies of the database, and sync up with
-pg_dump / pg_restore when we really need to share. let's go with that one.
-
-add django-rest-framework on top of the API. alternative is tastypie, but the
-former is more well supported and has a nice web viewer kind of thing going for
-it. that'll just allow us to query all the shit we've got in our database with a
-normal looking API. should be quite easy to set up.
-
-The CSS box model works like this: The innermost box is your content. Wrapping
-that is a box called padding. Next, there is the border. The border separates
-your content from other content. Padding separates your content from the
-border. The last thing is the margin. Margin separates the whole shebang from
-other whole shebangs. 
-
-Here's another CSS thing: When you're using flexbox, justify-content is used to
-align along the flex axis, and align-items is used to align along the cross
-axis. 
-
-The most concise way to remember how _this_ binds in JS functions. In normal
-functions, it'll refer to the _callee_'s this pointer. In arrow functions, it'll
-refer to the _caller_'s. It's a little more complicated than that -- really,
-arrow functions are just capturing the current lexical scope and using that. So
-if there are a couple callers passing down an arrow function, it's not quite
-accurate to say THE caller's this pointer. But it makes enough sense. 
-
-It's okay to send passwords over plaintext if you're using HTTPS:
-https://security.stackexchange.com/questions/110415/is-it-ok-to-send-plain-text-password-over-https
-
