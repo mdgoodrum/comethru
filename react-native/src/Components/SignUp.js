@@ -6,7 +6,7 @@ import Navbar from './Navbar'
 import Separator from './Separator'
 
 import ImagePicker from 'react-native-image-picker'
-import PhotoPlaceholder from '../Assets/photo-placeholder.png'
+const PhotoPlaceholder = require('../Assets/photo-placeholder.png')
 
 const ProfilePicture = props => {
     return (
