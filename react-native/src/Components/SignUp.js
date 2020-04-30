@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Image } from 'react-native'
 import { MainOrange } from '../Pallet'
 
 import Navbar from './Navbar'
