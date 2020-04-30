@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Image } from 'react-native'
 import { MainOrange } from '../Pallet'
 
 import Navbar from './Navbar'
 import Separator from './Separator'
 
 import ImagePicker from 'react-native-image-picker'
-import PhotoPlaceholder from '../Assets/photo-placeholder.png'
+const PhotoPlaceholder = require('../Assets/photo-placeholder.png')
 
 const ProfilePicture = props => {
     return (
