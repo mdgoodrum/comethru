@@ -20,6 +20,7 @@
 		39C4612DB9064E1BFAC65ACE /* libPods-comethruTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE5DC16F373F631A294AD9C /* libPods-comethruTests.a */; };
 		C3A56F2ACB95A9E68CEA97AF /* libPods-comethru-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4755250B3BF19ADABBE7DB65 /* libPods-comethru-tvOSTests.a */; };
 		D1B457F6E180CF2BB1C8D04F /* libPods-comethru.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28B920C0D1B9DB77B01AC4EA /* libPods-comethru.a */; };
+		29228287BA604AA29882BE6F /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6F95D11793C43A7A658C6E7 /* OpenSans-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		C4597BF4FEAA87AD647A00E2 /* Pods-comethru.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comethru.release.xcconfig"; path = "Target Support Files/Pods-comethru/Pods-comethru.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		C6F95D11793C43A7A658C6E7 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; name = "OpenSans-Bold.ttf"; path = "../src/Assets/Fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D85CAF9DBCA4E128976F2A13 /* Pods */,
+				F8D5FF4608D847DA94386C2F /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -196,6 +199,15 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		F8D5FF4608D847DA94386C2F /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				C6F95D11793C43A7A658C6E7 /* OpenSans-Bold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -337,6 +349,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				29228287BA604AA29882BE6F /* OpenSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

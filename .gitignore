@@ -60,6 +60,6 @@ buck-out/
 react-native/ios/Pods/
 
 /django/venv
-
+/django/api/migrations/__pycache__
 **/__pycache__
 **/.vscode

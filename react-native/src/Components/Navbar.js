@@ -10,7 +10,7 @@ export default class Navbar extends Component {
   render() {
     return (
         <View style={styles.content}>
-            <Text>ComeThru</Text>
+            <Text>comethru</Text>
             <Text style={styles.greetingText}>Hello, Thomas</Text>
             <Text>|||</Text>
         </View>

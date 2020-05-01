@@ -30,7 +30,7 @@ export default class Login extends Component {
 
     onPressLogin() {
         axios
-            .post(apiEndpoint('/authorize/'), {username: this.state.username, password: this.state.password})
+            .post(apiEndpoint('/authorize/'), { username: this.state.username, password: this.state.password })
             .then(response => {
                 this.props.history.push('/home')
             })
@@ -49,36 +49,36 @@ export default class Login extends Component {
         return (
             <View style={styles.content}>
                 <View style={styles.topBar}>
-                    <TouchableOpacity   
-                      style={styles.signUpButton}
-                      onPress={() => this.onPressSignUp()}
+                    <TouchableOpacity
+                        style={styles.signUpButton}
+                        onPress={() => this.onPressSignUp()}
                     >
                         <Text style={styles.signUpButtonText}>sign up!</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.logoContainer}>
-                    <Text style={styles.logo}>ComeThru</Text>
+                    <Text style={styles.logo}>comethru</Text>
                 </View>
                 <View style={styles.imageContainer}>
                     <Image style={styles.image} source={require('../Assets/attractive-people.png')} />
                 </View>
                 <View style={styles.usernameAndPasswordContainer}>
                     <Text style={styles.usernameAndPasswordText}>Username</Text>
-                    <TextInput 
-                      style={styles.usernameAndPasswordEntry}
-                      autoCapitalize={"none"} 
-                      onChangeText={text => this.onChangeUsername(text)} />
+                    <TextInput
+                        style={styles.usernameAndPasswordEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeUsername(text)} />
                     <Text style={styles.usernameAndPasswordText}>Password</Text>
-                    <TextInput 
-                      style={styles.usernameAndPasswordEntry} 
-                      autoCapitalize={"none"} 
-                      secureTextEntry={true} 
-                      onChangeText={text => this.onChangePassword(text)}
+                    <TextInput
+                        style={styles.usernameAndPasswordEntry}
+                        autoCapitalize={"none"}
+                        secureTextEntry={true}
+                        onChangeText={text => this.onChangePassword(text)}
                     />
                     <Text style={styles.forgotText}>forgot username or password?</Text>
-                    <TouchableOpacity 
-                      style={styles.loginButton} 
-                      onPress={() => this.onPressLogin()}
+                    <TouchableOpacity
+                        style={styles.loginButton}
+                        onPress={() => this.onPressLogin()}
                     >
                         <Text style={styles.loginButtonText}>log in!</Text>
                     </TouchableOpacity>
