@@ -22,6 +22,10 @@ export default class Home extends Component {
         this.props.history.push('/createevent')
     }
 
+    onPressCreateVenue() {
+        this.props.history.push('/createvenue')
+    }
+
     componentDidMount() {
         axios
             .get(apiEndpoint('/models/events/'))
@@ -44,6 +48,12 @@ export default class Home extends Component {
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity   
                         style={styles.myButton}
+                        onPress={() => this.onPressCreateVenue()}
+                        >
+                        <Text style={styles.createEventButtonText}>Create Venue</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity   
+                        style={styles.myButton}
                         onPress={() => this.onPressCreateEvent()}
                         >
                         <Text style={styles.createEventButtonText}>Create Event</Text>
@@ -64,8 +74,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     buttonContainer: {
-        flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
     },
     myButton: {
