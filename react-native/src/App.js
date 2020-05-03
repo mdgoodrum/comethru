@@ -17,6 +17,7 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
 import CreateEvent from './Components/CreateEvent';
+import CreateVenue from './Components/CreateVenue';
 
 export default class App extends Component {
   constructor(props) {
@@ -44,6 +45,10 @@ export default class App extends Component {
             exact
             path='/createevent'
             component={CreateEvent} />
+          <Route
+            exact
+            path='/createvenue'
+            component={CreateVenue} />
 
           <Route
             exact
