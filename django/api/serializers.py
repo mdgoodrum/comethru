@@ -34,8 +34,7 @@ class VenueSerializer(serializers.HyperlinkedModelSerializer):
 
 class AddressSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Venue
-        fields = ['name', 'address', 'twenty_one']
+        model = Address
         fields = [
             'street_number',
             'street_name',

@@ -27,6 +27,7 @@ router.register(r'groups', DjangoGroupViewSet)
 router.register(r'users', UserViewSet)
 router.register(r'events', EventViewSet)
 router.register(r'venues', VenueViewSet)
+router.register(r'addresses', AddressViewSet)
 
 urlpatterns = [
     path('', Index),
