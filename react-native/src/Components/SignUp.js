@@ -35,8 +35,9 @@ const IdentifierField = props => {
                 <View style={styles.field} >
                     <TextInput
                         autoCapitalize='none'
+                        // @spader Destructuring props here is kinda dangerous, but whatevz
                         {...props}
-                      style={styles.fieldInput} />
+                        style={styles.fieldInput} />
                 </View>
             )
         }
@@ -47,9 +48,9 @@ const IdentifierField = props => {
                         autoCapitalize='none'
                         {...props}
                         style={styles.fieldInput} />
-                    <Icon 
-                        name="cross" 
-                        size={30} 
+                    <Icon
+                        name="cross"
+                        size={30}
                         color="#9c2d17" />
                 </View>
             )
@@ -61,9 +62,9 @@ const IdentifierField = props => {
                         autoCapitalize='none'
                         {...props}
                         style={styles.fieldInput} />
-                    <Icon 
-                        name="check" 
-                        size={30} 
+                    <Icon
+                        name="check"
+                        size={30}
                         color="#279127" />
                 </View>
             )
@@ -71,6 +72,65 @@ const IdentifierField = props => {
     }
 }
 
+const PasswordState = Object.freeze({
+    NoInput: 0,
+    Ok: 1,
+    TooShort: 2
+})
+
+const PasswordField = props => {
+    switch (props.state) {
+        case (PasswordState.NoInput): {
+            return (
+                <View style={styles.field} >
+                    <TextInput
+                        autoCapitalize='none'
+                        placeholder='password'
+                        secureTextEntry={true}
+                        {...props}
+                        style={styles.passwordInput} />
+                </View>
+            
+            )
+        }
+        case (PasswordState.TooShort): {
+            return (
+                <View style={styles.field} >
+                    <TextInput
+                        autoCapitalize='none'
+                        placeholder='password'
+                        secureTextEntry={true}
+                        {...props}
+                        style={styles.passwordInput} />
+                    <Icon
+                        name="cross"
+                        size={30}
+                        color="#9c2d17" />
+                </View>
+            )
+        }
+
+        case (PasswordState.Ok): {
+            return (
+                <View style={styles.field} >
+                    <TextInput
+                        autoCapitalize='none'
+                        placeholder='password'
+                        secureTextEntry={true}
+                        {...props}
+                        style={styles.passwordInput} />
+                    <Icon
+                        name="check"
+                        size={30}
+                        color="#279127" />
+
+                </View>
+            
+            )
+        }
+
+    }
+}
 
 export default class SignUp extends Component {
     constructor(props) {
@@ -82,6 +142,7 @@ export default class SignUp extends Component {
             email: "",
             emailState: IdentifierState.NoInput,
             password: "",
+            passwordState: PasswordState.NoInput,
         }
     }
 
@@ -117,8 +178,20 @@ export default class SignUp extends Component {
     }
 
     onChangePassword(input) {
+        let nextState = this.state.passwordState
+
+        // Validate the password
+        if (input.length == 0 ) {
+            nextState = PasswordState.NoInput
+        } else if (input.length < 8) {
+            nextState = PasswordState.TooShort
+        } else {
+            nextState = PasswordState.Ok
+        }
+
         this.setState({
-            password: input
+            password: input,
+            passwordState: nextState
         })
     }
 
@@ -129,7 +202,7 @@ export default class SignUp extends Component {
             email: input,
             emailState: nextState
         })
-        
+
         if (input.length === 0) return
 
         axios
@@ -146,10 +219,6 @@ export default class SignUp extends Component {
                 // @spader @debug
                 console.log('Couldn not hit /does_user_exist/', error.response.data)
             })
-    }
-
-    onBlurUsername(input) {
-        console.log('burred')
     }
 
     onPressSignUp() {
@@ -189,25 +258,21 @@ export default class SignUp extends Component {
                     <Text>why don't you <OpenSans style={{ fontSize: 16 }}>comethru</OpenSans>?</Text>
                 </View>
                 <View style={styles.content}>
-                    <IdentifierField 
-                      state={this.state.usernameState}
-                      placeholder=' username'
-                      onChangeText={text => this.onChangeUsername(text)}
+                    <IdentifierField
+                        state={this.state.usernameState}
+                        placeholder=' username'
+                        onChangeText={text => this.onChangeUsername(text)}
                     />
-                    <IdentifierField 
-                      state={this.state.emailState}
-                      placeholder=' email'
-                      onChangeText={text => this.onChangeEmail(text)}
+                    <IdentifierField
+                        state={this.state.emailState}
+                        placeholder=' email'
+                        onChangeText={text => this.onChangeEmail(text)}
+                    />
+                    <PasswordField
+                        state={this.state.passwordState}
+                        onChangeText={text => this.onChangePassword(text)}
                     />
 
-                    <View style={styles.field} >
-                        <TextInput
-                            placeholder=' password'
-                            autoCapitalize='none'
-                            secureTextEntry={true}
-                            onChangeText={text => this.onChangePassword(text)}
-                            style={styles.passwordInput} />
-                    </View>
 
                     <View style={styles.signUpButtonContainer}>
                         <TouchableOpacity
