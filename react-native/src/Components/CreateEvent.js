@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native'
 import { MainOrange, FooterGray } from '../Pallet'
 
 import { apiEndpoint } from '../API'
@@ -11,29 +11,33 @@ export default class Login extends Component {
 
         this.state = {
             title: "",
-            date_published: "",
+            date_published: undefined,
             short_description: "",
             description: "",
             twenty_one: false,
             tags: [],
             organizer: "",
             venue: "",
-            start_time: "",
-            end_time: "",
+            start_time: undefined,
+            end_time: undefined,
         }
     }
 
     onPress() {
         const body = {
-            "title": "Party at Mikes 6666",
-            "date_published": "2020-04-27T20:02:59Z",
-            "short_description": "Best party ever",
-            "description": "you already know!",
-            "twenty_one": true,
-            "organizer": "http://localhost:8000/api/models/users/1/",
-            "start_time": "2020-04-27T20:04:20Z",
-            "end_time": "2020-04-27T20:04:22Z"
+            "title": this.state.title,
+            "date_published": this.state.date_published || new Date(),
+            "short_description": this.state.short_description,
+            "description": this.state.description,
+            "twenty_one": this.state.twenty_one,
+            "venue": 'http://localhost:8000/api/models/venues/1/',
+            "organizer": 'http://localhost:8000/api/models/users/1/',
+            "start_time": this.state.start_time || new Date(),
+            "end_time": this.state.end_time || new Date()
         };
+
+        console.log(body)
+
         axios
             .post(apiEndpoint('/models/events/'), body)
             .then(() => {
@@ -44,18 +48,156 @@ export default class Login extends Component {
             });
     }
 
+    onChangeTitle(title) {
+        this.setState({
+            title
+        })
+    }
+
+    onChangeDatePublished(date_published) {
+        const date = new Date(date_published);
+        if (isNaN(date.getTime())) {
+            this.setState({
+                date_published: new Date()
+            })
+        } else {
+            this.setState({
+                date_published
+            })
+        }
+    }
+
+    onChangeShortDescription(short_description) {
+        this.setState({
+            short_description
+        })
+    }
+
+    onChangeDescription(description) {
+        this.setState({
+            description
+        })
+    }
+
+    onChangeTwentyOne(input) {
+        if (input === '') {
+            this.setState({
+                twenty_one: false
+            })
+        } else {
+            this.setState({
+                twenty_one: true
+            })
+        }
+    }
+
+    onChangeOrganizer(organizer) {
+        this.setState({
+            organizer
+        })
+    }
+
+    onChangeVenue(venue) {
+        this.setState({
+            venue
+        })
+    }
+
+    onChangeStartTime(start_time) {
+        const date = new Date(start_time);
+        if (isNaN(date.getTime())) {
+            this.setState({
+                start_time: new Date()
+            })
+        } else {
+            this.setState({
+                start_time
+            })
+        }
+    }
+
+    onChangeEndTime(end_time) {
+        const date = new Date(end_time);
+        if (isNaN(date.getTime())) {
+            this.setState({
+                end_time: new Date()
+            })
+        } else {
+            this.setState({
+                end_time
+            })
+        }
+    }
+
+    cancel() {
+        this.props.history.push('/home')
+    }
+
     render() {
         return (
             <View style={styles.content}>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity   
-                        style={styles.myButton}
-                        onPress={() => this.onPress()}
-                        >
-                        <Text style={styles.createEventButtonText}>Create Event</Text>
-                    </TouchableOpacity>
-                </View>
+            <View style={styles.usernameAndPasswordContainer}>
+                <Text style={styles.usernameAndPasswordText}>Event Name</Text>
+                <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    onChangeText={text => this.onChangeTitle(text)} />
+                <Text style={styles.usernameAndPasswordText}>Date published</Text>
+                <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    onChangeText={text => this.onChangeDatePublished(text)} />
+                <Text style={styles.usernameAndPasswordText}>Short Description</Text>
+                <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    onChangeText={text => this.onChangeShortDescription(text)} />
+                 <Text style={styles.usernameAndPasswordText}>Description</Text>
+                <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    onChangeText={text => this.onChangeDescription(text)} />
+                 <Text style={styles.usernameAndPasswordText}>21+</Text>
+                <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    onChangeText={text => this.onChangeTwentyOne(text)} />
+                 <Text style={styles.usernameAndPasswordText}>Organizer</Text>
+                 <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    onChangeText={text => this.onChangeVenue(text)} />
+                 <Text style={styles.usernameAndPasswordText}>Venue</Text>
+                <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    onChangeText={text => this.onChangeOrganizer(text)} />
+                 <Text style={styles.usernameAndPasswordText}>Start time</Text>
+                <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    onChangeText={text => this.onChangeStartTime(text)} />
+                 <Text style={styles.usernameAndPasswordText}>End Time</Text>
+                <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    onChangeText={text => this.onChangeEndTime(text)} />
             </View>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity   
+                    style={styles.myButton}
+                    onPress={() => this.cancel()}
+                    >
+                    <Text style={styles.createEventButtonText}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity   
+                    style={styles.myButton}
+                    onPress={() => this.onPress()}
+                    >
+                    <Text style={styles.createEventButtonText}>Create Event</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
         )
     }
 }
@@ -84,92 +226,33 @@ const styles = StyleSheet.create({
         paddingLeft: '2%',
         paddingRight: '2%'
     },
-    loginButton: {
+    myButton: {
+        height: 80,
+        width: 80,
+        borderRadius: 160,
         backgroundColor: MainOrange,
-        textAlign: 'center',
-        borderRadius: 5,
-        height: '10%',
-        display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
     },
-    loginButtonText: {
+    createEventButtonText: {
         color: '#fff',
+        textAlign: 'center',
         fontWeight: 'bold',
         fontStyle: 'italic',
-        paddingLeft: '5%',
-        paddingRight: '5%'
-    },
-    topBar: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        minHeight: '5%',
-        width: '100%'
-    },
-    logoContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        marginRight: '5%',
-    },
-    logo: {
-        fontWeight: 'bold',
-        fontSize: 32,
-        margin: "3%"
-    },
-    imageContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '25%',
-        width: '100%',
-    },
-    image: {
-        height: '100%',
-        width: '100%',
-    },
-    usernameAndPasswordContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        height: '40%',
-
-    },
-    usernameAndPasswordEntry: {
-        borderColor: MainOrange,
-        borderWidth: 1,
-        borderRadius: 5,
-        width: '60%',
-        height: '7%',
-        marginBottom: '5%',
-        textAlign: 'center'
     },
     usernameAndPasswordText: {
         color: MainOrange,
         fontWeight: 'bold',
         letterSpacing: 1,
         marginBottom: '2%',
-        marginTop: '6%'
+        marginTop: '1%'
     },
-    forgotText: {
-        fontStyle: 'italic',
-        marginBottom: '5%'
+    usernameAndPasswordEntry: {
+        borderColor: MainOrange,
+        borderWidth: 1,
+        borderRadius: 5,
+        width: '60%',
+        height: '4%',
+        marginBottom: '3%',
+        textAlign: 'center'
     },
-    footer: {
-        backgroundColor: FooterGray,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        height: '50%',
-    },
-    footerText: {
-        color: 'white',
-        fontWeight: 'bold',
-        marginLeft: '5%',
-        marginTop: '2%'
-    }
 })
