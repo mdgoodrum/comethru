@@ -38,20 +38,8 @@ target 'comethru' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
-  target 'comethruTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'react-native-spinkit', :path => '../node_modules/react-native-spinkit'
 
   use_native_modules!
-end
-
-target 'comethru-tvOS' do
-  # Pods for comethru-tvOS
-
-  target 'comethru-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end

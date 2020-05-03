@@ -5,8 +5,10 @@ from api.views import *
 
 from api.endpoints.authorize import Authorize
 from api.endpoints.add_user import AddUser
+from api.endpoints.does_user_exist import DoesUserExist
 
 urlpatterns = [
     path('authorize/', Authorize.as_view()),
     path('add_user/', AddUser.as_view()),
+    path('does_user_exist/', DoesUserExist.as_view()),
 ]
