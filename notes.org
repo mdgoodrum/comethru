@@ -130,6 +130,7 @@ accurate to say THE caller's this pointer. But it makes enough sense.
 It's okay to send passwords over plaintext if you're using HTTPS:
 https://security.stackexchange.com/questions/110415/is-it-ok-to-send-plain-text-password-over-https
 
+
 ** stuff i had to do on aws
 sudo apt-get install libpq-dev
 sudo apt-get install python3-pip
@@ -158,3 +159,16 @@ Add nginx configuration to proxy for gunicorn
 
 sudo ufw delete allow 800
 sudo ufw allow 'Nginx Full'
+** hmm
+- i want to be able to swipe backward to return to the previous page
+- i need some global information. 
+  - what user is currently logged in?
+
+what about, say, the list of events. where does that get stored? you want to
+know what the user has already seen, you want to know where you were in the
+pagination. if the EventView goes away, that stuff isn't going to persist...will
+it? 
+
+alright, really all i need to keep track of globally is the user, their auth
+token. if popping the history preserves props, problem solved. the EventView can
+store all the events and shit we have already seen. just push and pop. 

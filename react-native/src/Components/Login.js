@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Image, Text, TextInput, StyleSheet } from 'react-native'
 import { MainOrange, FooterGray } from '../Pallet'
-import { Redirect } from 'react-router-native';
 
 import { apiEndpoint } from '../API'
 import axios from 'axios'

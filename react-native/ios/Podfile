@@ -34,12 +34,9 @@ target 'comethru' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
-
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
-
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'react-native-spinkit', :path => '../node_modules/react-native-spinkit'
-
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
   use_native_modules!
 end
