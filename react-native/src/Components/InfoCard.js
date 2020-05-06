@@ -1,13 +1,21 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
+
+import { findEvent } from '../Utils'
 
 export default InfoCard = (props) => {
+  const events = useSelector(state => state.events)
   const navigation = useNavigation()
 
   const onPress = () => {
-    navigation.navigate('Event')
+    navigation.navigate('Event', {
+      eventId: props.eventId
+    })
   }
+
+  const event = findEvent(events, props.eventId)
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -17,7 +25,7 @@ export default InfoCard = (props) => {
         </View>
         <View style={styles.cardContent}>
           <Text style={styles.description}>
-            {props.short_description}
+            {event.short_description}
           </Text>
         </View>
       </View>

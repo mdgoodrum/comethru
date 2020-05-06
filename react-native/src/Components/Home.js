@@ -27,10 +27,10 @@ export default Home = (props) => {
         axios
             .get(apiEndpoint('/models/events/')) // @spader this should be an endpoint
             .then(response => {
-                console.log('Got events!', response.data);
                 dispatch(updateEvents(response.data))
             })
             .catch(error => {
+                // @spader @debug
                 console.log('Failed to retrieve event data.');
                 console.log(error);
             });

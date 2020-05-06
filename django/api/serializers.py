@@ -24,7 +24,8 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
             'organizer', 
             'venue', 
             'start_time', 
-            'end_time'
+            'end_time',
+            'id'
         ]
 
 class VenueSerializer(serializers.HyperlinkedModelSerializer):

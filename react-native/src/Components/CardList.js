@@ -10,7 +10,7 @@ export default CardList = (props) => {
   return (
     <View style={styles.smallImagesContainer}>
       {events.map((event, key) => {
-        return <InfoCard key={key} {...event} />;
+        return <InfoCard key={key} eventId={event.id} />;
       })}
     </View>
   );
@@ -18,7 +18,7 @@ export default CardList = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    shadowColor: '#00000021',
+    shadowColor: '#FF000021',
     shadowOffset: {
       width: 0,
       height: 6,

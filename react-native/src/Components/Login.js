@@ -27,7 +27,6 @@ export default Login = props => {
                 password: password 
             })
             .then(response => {
-                console.log('it was good!')
                 props.navigation.navigate('Events')
             })
             .catch(error => {
