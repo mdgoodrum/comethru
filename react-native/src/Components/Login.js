@@ -6,33 +6,29 @@ import { Redirect } from 'react-router-native';
 import { apiEndpoint } from '../API'
 import axios from 'axios'
 
-export default class Login extends Component {
-    constructor(props) {
-        super(props)
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-        this.state = {
-            username: "",
-            password: ""
-        }
+export default Login = props => {
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
+    onChangeUsername = (input) => {
+        setUsername(input)
     }
 
-    onChangeUsername(input) {
-        this.setState({
-            username: input
-        })
+    onChangePassword = (input) => {
+        setPassword(input)
     }
 
-    onChangePassword(input) {
-        this.setState({
-            password: input
-        })
-    }
-
-    onPressLogin() {
+    onPressLogin = () => {
         axios
-            .post(apiEndpoint('/authorize/'), { username: this.state.username, password: this.state.password })
+            .post(apiEndpoint('/authorize/'), { 
+                username: this.state.username, 
+                password: this.state.password 
+            })
             .then(response => {
-                this.props.history.push('/home')
+                //this.props.history.push('/home')
             })
             .catch(error => {
                 // @spader @debug
@@ -41,59 +37,56 @@ export default class Login extends Component {
             });
     }
 
-    onPressSignUp() {
-        this.props.history.push('/signup')
+    onPressSignUp = () => {
     }
 
-    render() {
-        return (
-            <View style={styles.content}>
-                <View style={styles.topBar}>
-                    <TouchableOpacity
-                        style={styles.signUpButton}
-                        onPress={() => this.onPressSignUp()}
-                    >
-                        <Text style={styles.signUpButtonText}>sign up!</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.logoContainer}>
-                    <Text style={styles.logo}>comethru</Text>
-                </View>
-                <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={require('../Assets/attractive-people.png')} />
-                </View>
-                <View style={styles.usernameAndPasswordContainer}>
-                    <Text style={styles.usernameAndPasswordText}>Username</Text>
-                    <TextInput
-                        style={styles.usernameAndPasswordEntry}
-                        autoCapitalize={"none"}
-                        onChangeText={text => this.onChangeUsername(text)} />
-                    <Text style={styles.usernameAndPasswordText}>Password</Text>
-                    <TextInput
-                        style={styles.usernameAndPasswordEntry}
-                        autoCapitalize={"none"}
-                        secureTextEntry={true}
-                        onChangeText={text => this.onChangePassword(text)}
-                    />
-                    <Text style={styles.forgotText}>forgot username or password?</Text>
-                    <TouchableOpacity
-                        style={styles.loginButton}
-                        onPress={() => this.onPressLogin()}
-                    >
-                        <Text style={styles.loginButtonText}>log in!</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.footer}>
-                    <Text style={styles.footerText}>Sign Up</Text>
-                    <Text style={styles.footerText}>Log In</Text>
-                    <Text style={styles.footerText}>Help</Text>
-                    <Text style={styles.footerText}>Terms and Conditions</Text>
-                    <Text style={styles.footerText}>Contact Us</Text>
-                </View>
-
+    return (
+        <View style={styles.content}>
+            <View style={styles.topBar}>
+                <TouchableOpacity
+                    style={styles.signUpButton}
+                    onPress={() => this.onPressSignUp()}
+                >
+                    <Text style={styles.signUpButtonText}>sign up!</Text>
+                </TouchableOpacity>
             </View>
-        )
-    }
+            <View style={styles.logoContainer}>
+                <Text style={styles.logo}>comethru</Text>
+            </View>
+            <View style={styles.imageContainer}>
+                <Image style={styles.image} source={require('../Assets/attractive-people.png')} />
+            </View>
+            <View style={styles.usernameAndPasswordContainer}>
+                <Text style={styles.usernameAndPasswordText}>Username</Text>
+                <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    onChangeText={text => this.onChangeUsername(text)} />
+                <Text style={styles.usernameAndPasswordText}>Password</Text>
+                <TextInput
+                    style={styles.usernameAndPasswordEntry}
+                    autoCapitalize={"none"}
+                    secureTextEntry={true}
+                    onChangeText={text => this.onChangePassword(text)}
+                />
+                <Text style={styles.forgotText}>forgot username or password?</Text>
+                <TouchableOpacity
+                    style={styles.loginButton}
+                    onPress={() => this.onPressLogin()}
+                >
+                    <Text style={styles.loginButtonText}>log in!</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.footer}>
+                <Text style={styles.footerText}>Sign Up</Text>
+                <Text style={styles.footerText}>Log In</Text>
+                <Text style={styles.footerText}>Help</Text>
+                <Text style={styles.footerText}>Terms and Conditions</Text>
+                <Text style={styles.footerText}>Contact Us</Text>
+            </View>
+
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
