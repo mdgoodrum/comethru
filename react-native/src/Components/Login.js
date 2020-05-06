@@ -1,16 +1,19 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { View, TouchableOpacity, Image, Text, TextInput, StyleSheet } from 'react-native'
-import { MainOrange, FooterGray } from '../Pallet'
+import { useDispatch } from 'react-redux'
 
-import { apiEndpoint } from '../API'
 import axios from 'axios'
 
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { MainOrange, FooterGray } from '../Pallet'
+import { apiEndpoint } from '../API'
+
+import {logIn} from '../Store'
 
 export default Login = props => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+
+    const dispatch = useDispatch()
 
     onChangeUsername = (input) => {
         setUsername(input)
@@ -27,6 +30,7 @@ export default Login = props => {
                 password: password 
             })
             .then(response => {
+                dispatch(logIn(username))
                 props.navigation.navigate('Events')
             })
             .catch(error => {
