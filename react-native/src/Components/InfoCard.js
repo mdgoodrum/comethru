@@ -1,34 +1,28 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native'
 
-export default class InfoCard extends Component {
-  constructor(props) {
-    super(props);
-    console.log(props.data);
+export default InfoCard = (props) => {
+  const navigation = useNavigation()
+
+  const onPress = () => {
+    navigation.navigate('Event')
   }
 
-  render() {
-    return (
-      <Link
-        to={{
-          pathname: '/detail',
-          state: {
-            data: this.props.data,
-          },
-        }}>
-        <View style={styles.card}>
-          <View style={styles.cardHeader}>
-            <Text style={styles.cardTitle}>Description</Text>
-          </View>
-          <View style={styles.cardContent}>
-            <Text style={styles.description}>
-              {this.props.data.short_description}
-            </Text>
-          </View>
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.card}>
+        <View style={styles.cardHeader}>
+          <Text style={styles.cardTitle}>Description</Text>
         </View>
-      </Link>
-    );
-  }
+        <View style={styles.cardContent}>
+          <Text style={styles.description}>
+            {props.short_description}
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({

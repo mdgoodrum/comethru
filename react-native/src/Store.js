@@ -2,19 +2,33 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
 const initialState = {
-    loggedInUser: null
+    loggedInUser: null,
+    events: []
 }
 
 // Actions 
+const UPDATE_EVENTS = 'UpdateEvents'
+
+// Action Creators
+export const updateEvents = (events) => {
+    return {
+        type: UPDATE_EVENTS,
+        events: events
+    }
+}
 
 // Reducers
-const defaultReducer = (state, action) => {
-    return state
+const updateEventsReducer = (state, action) => {
+    return newState = {
+        ...state,
+        events: action.events
+    }
 }
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        default: return defaultReducer(state, action)
+        case UPDATE_EVENTS: return updateEventsReducer(state, action)
+        default:            return state
     }
 }
 

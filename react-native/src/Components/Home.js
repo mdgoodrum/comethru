@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, SafeAreaView, TouchableOpacity, Text } from 'react-native';
 const axios = require('axios');
 
@@ -8,61 +8,57 @@ import { BackgroundGray, MainOrange } from '../Pallet'
 
 import CardList from './CardList';
 
+import { useDispatch, useSelector } from 'react-redux'
+import { updateEvents } from '../Store'
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props);
+export default Home = (props) => {
+    const events = useSelector(state => state.events)
+    const dispatch = useDispatch()
 
-        this.state = {
-            events: [],
-        };
+    onPressCreateEvent = () => {
+        props.navigation.navigate('Create Event')
     }
 
-    onPressCreateEvent() {
-        this.props.history.push('/createevent')
+    onPressCreateVenue = () => {
+        props.navigation.navigate('Create Venue')
     }
 
-    onPressCreateVenue() {
-        this.props.history.push('/createvenue')
-    }
-
-    componentDidMount() {
+    useEffect(() =>{
         axios
-            .get(apiEndpoint('/models/events/'))
+            .get(apiEndpoint('/models/events/')) // @spader this should be an endpoint
             .then(response => {
-                this.setState({ events: response.data });
-                console.log('Got events!');
+                console.log('Got events!', response.data);
+                dispatch(updateEvents(response.data))
             })
             .catch(error => {
                 console.log('Failed to retrieve event data.');
                 console.log(error);
             });
-    }
+    }, [])
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <ScrollView style={styles.content}>
-                    <CardList events={this.state.events} />
-                </ScrollView>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity   
-                        style={styles.myButton}
-                        onPress={() => this.onPressCreateVenue()}
-                        >
-                        <Text style={styles.createEventButtonText}>Create Venue</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity   
-                        style={styles.myButton}
-                        onPress={() => this.onPressCreateEvent()}
-                        >
-                        <Text style={styles.createEventButtonText}>Create Event</Text>
-                    </TouchableOpacity>
-                </View>
+    return (
+        <View style={styles.container}>
+            <ScrollView style={styles.content}>
+                <CardList />
+            </ScrollView>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity   
+                    style={styles.myButton}
+                    onPress={() => this.onPressCreateVenue()}
+                    >
+                    <Text style={styles.createEventButtonText}>Create Venue</Text>
+                </TouchableOpacity>
+                <TouchableOpacity   
+                    style={styles.myButton}
+                    onPress={() => this.onPressCreateEvent()}
+                    >
+                    <Text style={styles.createEventButtonText}>Create Event</Text>
+                </TouchableOpacity>
             </View>
-        );
-    }
+        </View>
+    );
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

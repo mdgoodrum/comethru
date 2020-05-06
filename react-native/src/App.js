@@ -16,53 +16,22 @@ import SignUp from './Components/SignUp';
 import CreateEvent from './Components/CreateEvent';
 import CreateVenue from './Components/CreateVenue';
 
-// export default App = props => {
-//     return (
-//       <Provider store={store}>
-//         <NativeRouter>
-//           <SafeAreaView style={styles.container}>
-//             <Route
-//               exact
-//               path='/'
-//               component={Login}
-//             />
-//             <Route
-//               exact
-//               path='/home'
-//               component={Home} />
-//             <Route
-//               exact
-//               path='/signup'
-//               component={SignUp} />
-//             <Route
-//               exact
-//               path='/createevent'
-//               component={CreateEvent} />
-//             <Route
-//               exact
-//               path='/createvenue'
-//               component={CreateVenue} />
-
-//             <Route
-//               exact
-//               path='/detail'
-//               component={props => <EventDetail {...props} />}
-//             />
-//           </SafeAreaView>
-//         </NativeRouter>
-//       </Provider>
-//     );
-// }
-
 const Stack = createStackNavigator()
 
 export default App = (props) => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Log In" component={Login} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='Log In'>
+          <Stack.Screen name='Log In' component={Login} />
+          <Stack.Screen name='Sign Up' component={SignUp} />
+          <Stack.Screen name='Events' component={Home} />
+          <Stack.Screen name='Create Event' component={CreateEvent} />
+          <Stack.Screen name='Create Venue' component={CreateVenue} />
+          <Stack.Screen name='Event' component={EventDetail} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   )
 }
 const styles = StyleSheet.create({

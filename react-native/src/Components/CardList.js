@@ -1,26 +1,19 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import { useSelector } from 'react-redux'
 
 import InfoCard from './InfoCard';
 
-export default class CardList extends Component {
-  constructor(props) {
-    super(props);
-  }
+export default CardList = (props) => {
+  const events = useSelector(state => state.events)
 
-  renderCards = () => {
-    return (
-      <View style={styles.smallImagesContainer}>
-        {this.props.events.map((event, key) => {
-          return <InfoCard key={key} data={event} />;
-        })}
-      </View>
-    );
-  };
-
-  render() {
-    return this.renderCards();
-  }
+  return (
+    <View style={styles.smallImagesContainer}>
+      {events.map((event, key) => {
+        return <InfoCard key={key} {...event} />;
+      })}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

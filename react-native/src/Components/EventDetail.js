@@ -9,14 +9,9 @@ import { BackgroundGray } from '../Pallet'
 import Separator from './Separator';
 import Navbar from './Navbar';
 
-let test = `#Heading 1
-
-##Heading 2 
-
-from test`
-
 export default class EventDetail extends Component {
     constructor(props) {
+        console.log(props)
         super(props);
         // @spader All the props for this are in this.props.location.state,
         // because this component is created from a Link component.
@@ -24,7 +19,7 @@ export default class EventDetail extends Component {
 
     render() {
         let parsedStart = parse(
-            this.props.location.state.data.start_time.replace('T', ' '),
+            this.props.start_time.replace('T', ' '),
             'YYYY-MM-DD HH:mm:ss',
         )
         let startTime = format(parsedStart, 'dddd MMMM Do, YYYY')
@@ -32,7 +27,7 @@ export default class EventDetail extends Component {
         startTime = startTime + format(parsedStart, 'HH:mm A')
 
         let parsedEnd = parse(
-            this.props.location.state.data.end_time.replace('T', ' '),
+            this.props.end_time.replace('T', ' '),
             'YYYY-MM-DD HH:mm:ss',
         )
         let endTime = format(parsedEnd, 'dddd MMMM Do, YYYY')
@@ -44,7 +39,7 @@ export default class EventDetail extends Component {
                 <Navbar />
                 <Separator />
                 <ScrollView style={styles.content}>
-                    <Text style={styles.title}>{this.props.location.state.data.title}</Text>
+                    <Text style={styles.title}>{this.props.title}</Text>
                     <View style={styles.imageContainer}>
                         <Image
                             style={styles.image}
@@ -53,7 +48,7 @@ export default class EventDetail extends Component {
                     <View style={styles.locationAndTime}>
                         <View style={styles.location}>
                             <Text style={styles.locationHeader}>Location</Text>
-                            {/* <Text>{this.props.location.state.data.location}</Text> */}
+                            {/* <Text>{this.props.location}</Text> */}
                             <Text>Atlantic Station</Text>
                             <Text>241 20th Street NW</Text>
                             <Text>Atlanta, GA</Text>
@@ -66,7 +61,7 @@ export default class EventDetail extends Component {
                     </View>
                     <View style={styles.description}>
                         <Markdown styles={rawStyles.markdown}>
-                            {this.props.location.state.data.description}
+                            {this.props.description}
                         </Markdown>
                     </View>
                 </ScrollView>

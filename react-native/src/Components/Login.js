@@ -23,11 +23,12 @@ export default Login = props => {
     onPressLogin = () => {
         axios
             .post(apiEndpoint('/authorize/'), { 
-                username: this.state.username, 
-                password: this.state.password 
+                username: username, 
+                password: password 
             })
             .then(response => {
-                //this.props.history.push('/home')
+                console.log('it was good!')
+                props.navigation.navigate('Events')
             })
             .catch(error => {
                 // @spader @debug
@@ -37,6 +38,7 @@ export default Login = props => {
     }
 
     onPressSignUp = () => {
+        props.navigation.navigate('Sign Up')
     }
 
     return (
