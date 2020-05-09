@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
-import Spinner from 'react-native-spinkit'
 // import ImagePicker from 'react-native-image-picker' # use this later
 
 // Libraries

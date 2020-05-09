@@ -55,9 +55,9 @@ class Address(models.Model):
         return str(self.street_number) + " " + self.street_name + " " + self.street_type
 
 class EventInterest(models.Model):
-    NONE = 'NONE'
-    GOING = 'GOING'
-    INTERESTED = 'INTERESTED'
+    NONE = 0
+    GOING = 1
+    INTERESTED = 2
     interest_types = (
         (NONE, 'None'),
         (GOING, 'Going'),
@@ -74,8 +74,7 @@ class EventInterest(models.Model):
         on_delete=models.CASCADE, 
         related_name='user')
 
-    status = models.CharField(
-        max_length=16,
+    status = models.IntegerField(
         choices=interest_types,
         default=NONE)
 

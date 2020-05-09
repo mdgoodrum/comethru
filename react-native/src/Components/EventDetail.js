@@ -1,17 +1,22 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { StyleSheet, View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo'
+
+import axios from 'axios'
+
 import { useSelector } from 'react-redux'
 
-import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
 import Markdown from 'react-native-simple-markdown';
 import { format, parse } from 'fecha';
 
-import { findEvent } from '../Utils'
+import { findEvent, findVenue, getInterestState } from '../Utils'
 
 import { BackgroundGray, MainOrange } from '../Pallet'
 
 import Separator from './Separator';
 import Navbar from './Navbar';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useFocusEffect } from '@react-navigation/native';
+import { apiEndpoint } from '../API';
 
 const parseTime = (time) => {
     let parsed = parse(
@@ -25,40 +30,89 @@ const parseTime = (time) => {
 
 // @spader These have to match up with what's in Python, which feels error prone
 const InterestState = Object.freeze({
-    NONE: 0,
-    INTERESTED: 1,
-    GOING: 2
+    None: 0,
+    Going: 1,
+    Interested: 2
 })
 
 const InterestToggle = (props) => {
-    const interests = useSelector(state => state.interests)
-
-    let state = InterestState.NONE
-    for (let interest of interests) {
-        if (interest.event === props.event.pk) {
-            state = InterestState[interest.status]
-        }
+    // Going button, with an icon if it's selected
+    let goingButtonChildren = []
+    if (props.interestState === InterestState.Going) {
+        goingButtonChildren.push(
+            <Icon
+                name="check"
+                size={30}
+                color="#279127" />)
     }
+    goingButtonChildren.push(<Text key={'unique'} style={styles.buttonText}>Going!</Text>)
 
-    let goingStyle = state === InterestState.GOING ? styles.selectedInterestButton : styles.unselectedInterestButton
-    let interestedStyle = state === InterestState.Interested ? styles.selectedInterestButton : styles.unselectedInterestButton
+    let goingButton =
+        <TouchableOpacity
+            style={styles.interestButton}
+            onPress={() => props.setInterestState(InterestState.Going)}>
+            {goingButtonChildren}
+        </TouchableOpacity>
+
+    // Interested button. Ditto.
+    let interestedButtonChildren = []
+    if (props.interestState === InterestState.Interested) {
+        interestedButtonChildren.push(
+            <Icon
+                name="check"
+                size={30}
+                color="#279127" />)
+    }
+    interestedButtonChildren.push(<Text key={'unique'} style={styles.buttonText}>Interested!</Text>)
+
+    let interestedButton =
+        <TouchableOpacity
+            style={styles.interestButton}
+            onPress={() => props.setInterestState(InterestState.Interested)}>
+            {interestedButtonChildren}
+        </TouchableOpacity>
+
+    // @spader The text shifts when you click one of these
     return (
         <View style={styles.interestButtons}>
-            <TouchableOpacity style={goingStyle}>
-                <Text>Going</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={interestedStyle}>
-                <Text>Interested</Text>
-            </TouchableOpacity>
+            {goingButton}
+            {interestedButton}
         </View>
     )
 }
 
 export default EventDetail = (props) => {
     const events = useSelector(state => state.events)
-    const user = useSelector(state => state.user)
+    const interests = useSelector(state => state.interests)
+    const venues = useSelector(state => state.venues)
+    const user = useSelector(state => state.loggedInUser)
 
     const event = findEvent(events, props.route.params.eventId)
+    const venue = findVenue(venues, event.venue)
+
+    const [interestState, setInterestState] = useState(getInterestState(interests, event))
+
+    useFocusEffect(useCallback(() => {
+        // Do nothing on focus 
+
+        // PUT back to the database on blur. This callback is run on cleanup, which == blur.
+        return () => {
+            // @spader There's a bug where the database gets updated but the local copy doesn't.
+            axios
+                .put(apiEndpoint('/event_interest/'), {
+                    'event': event.id,
+                    'user': user.id,
+                    'status': interestState
+                })
+                .then(response => {
+                    console.log('gud')
+                })
+                .catch(error => {
+                    console.log('bad')
+                })
+        }
+    }, [interestState]))
+
     const startTime = parseTime(event.start_time)
     const endTime = parseTime(event.end_time)
 
@@ -67,7 +121,6 @@ export default EventDetail = (props) => {
             <Navbar />
             <Separator />
             <ScrollView style={styles.content}>
-                <Text style={styles.title}>{event.title}</Text>
                 <View style={styles.imageContainer}>
                     <Image
                         style={styles.image}
@@ -76,9 +129,12 @@ export default EventDetail = (props) => {
 
                 <Text style={styles.time}> {startTime} - {endTime} </Text>
 
-                <Text style={styles.location}>Atlantic Station</Text>
-                <InterestToggle event={event}></InterestToggle>
+                <Text style={styles.title}>{event.title}</Text>
 
+                <Text style={styles.location}>{venue.name}</Text>
+                <InterestToggle interestState={interestState} setInterestState={setInterestState}></InterestToggle>
+
+                <Text style={styles.descriptionHeader}>Details</Text>
                 <View style={styles.description}>
                     <Markdown styles={rawStyles.markdown}>
                         {event.description}
@@ -98,24 +154,39 @@ const rawStyles = {
             justifyContent: 'flex-start',
             marginBottom: 16,
         }
-    }
+    },
+    interestButton: {
+        height: '100%',
+        width: '40%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: '2%'
+    },
 }
 
 const styles = StyleSheet.create({
     content: {
         flex: 1,
         flexDirection: 'column',
-
     },
     description: {
         textAlign: 'left',
-        margin: '5%',
+        marginLeft: '5%',
+        marginRight: '5%',
+    },
+    descriptionHeader: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginLeft: '5%',
+        marginBottom: '2%'
     },
     title: {
-        textAlign: 'center',
         fontSize: 20,
-        flexBasis: '6%',
-        paddingTop: '3%',
+        fontWeight: 'bold',
+        marginLeft: '5%',
+        marginBottom: '1%'
     },
     imageContainer: {
         display: 'flex',
@@ -123,9 +194,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
+        marginBottom: '3%',
+        marginTop: '3%'
     },
     image: {
-        height: '80%',
+        height: '100%',
         width: '90%',
         borderRadius: 10,
     },
@@ -134,10 +207,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     location: {
-        display: 'flex',
-        flexDirection: 'column',
-        flexGrow: 1,
         marginLeft: '5%',
+        marginBottom: '1%'
     },
     time: {
         marginLeft: '4%',
@@ -146,21 +217,30 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: '1%'
     },
-    locationHeader: {
-        fontWeight: 'bold'
-    },
-    timeHeader: {
-        fontWeight: 'bold'
-    },
     interestButtons: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        marginLeft: '5%',
+        marginBottom: '5%',
+        height: '10%',
     },
     selectedInterestButton: {
+        ...rawStyles.interestButton,
         backgroundColor: MainOrange,
     },
-    unselectedInterestButton: {
-
+    interestButton: {
+        ...rawStyles.interestButton,
+        backgroundColor: MainOrange,
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontStyle: 'italic',
+        paddingLeft: '5%',
+        paddingRight: '5%'
+    },
+    checkIcon: {
+        paddingLeft: '2%'
     }
 });

@@ -4,11 +4,13 @@ import { createStore } from 'redux'
 const initialState = {
     loggedInUser: null,
     events: [],
+    venues: [],
     interests: []
 }
 
 // Actions 
 const UPDATE_EVENTS = 'UpdateEvents'
+const UPDATE_VENUES = 'UpdateVenues'
 const UPDATE_EVENT_INTEREST = 'UpdateEventInterest'
 const LOG_IN = 'LogIn'
 const LOG_OUT = 'LogOut'
@@ -18,6 +20,13 @@ export const updateEvents = (events) => {
     return {
         type: UPDATE_EVENTS,
         events: events
+    }
+}
+
+export const updateVenues = (venues) => {
+    return {
+        type: UPDATE_VENUES,
+        venues: venues
     }
 }
 
@@ -51,6 +60,13 @@ const updateEventsReducer = (state, action) => {
     }
 }
 
+const updateVenuesReducer = (state, action) => {
+    console.log(action.venues)
+    return {
+        ...state,
+        venues: action.venues
+    }
+}
 const updateEventInterestReducer = (state, action) => {
     return {
         ...state,
@@ -71,6 +87,7 @@ const reducer = (state = initialState, action) => {
         case LOG_IN:                return authReducer(state, action)
         case LOG_OUT:               return authReducer(state, action)
         case UPDATE_EVENTS:         return updateEventsReducer(state, action)
+        case UPDATE_VENUES:         return updateVenuesReducer(state, action)
         case UPDATE_EVENT_INTEREST: return updateEventInterestReducer(state, action)
         default:                    return state
     }

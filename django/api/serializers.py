@@ -10,13 +10,16 @@ class UserSerializer(serializers.ModelSerializer):
             'email', 
             'first_name', 
             'last_name', 
-            'pk'
+            'id'
         ]
 
 class DjangoGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ['url', 'name']
+        fields = [
+            'url', 
+            'name'
+        ]
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,13 +35,17 @@ class EventSerializer(serializers.ModelSerializer):
             'start_time', 
             'end_time',
             'id',
-            'pk'
         ]
 
 class VenueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venue
-        fields = ['name', 'address', 'twenty_one']
+        fields = [
+            'name', 
+            'address', 
+            'twenty_one',
+            'id'
+        ]
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
@@ -54,7 +61,8 @@ class AddressSerializer(serializers.ModelSerializer):
             'major_municipality',
             'governing_district',
             'postal_area',
-            'country'
+            'country',
+            'id'
         ]
 
 class EventInterestSerializer(serializers.ModelSerializer):

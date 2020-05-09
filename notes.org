@@ -9,7 +9,10 @@ These are actual features
 - Add push notifications
 - A system for people to redeem their free shit
 - A way to check in at events. Preferably automatically.
+- Store images on S3 and have a scheme to refer to images from the frontend
+  - Make sure different sized images don't break the layout
 - Minify the app
+- Make sure all errors are properly dealt with
 - Security!
   - Lock down the API from random HTTP requests
   - Rate limit the API
