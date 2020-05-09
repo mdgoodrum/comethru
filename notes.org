@@ -17,12 +17,14 @@ These are actual features
 These are things that are done halfway
 - Make the nav bar work
 - Make another pass at the CSS
+- Make the cards pretty
 
 These are things that might not be MVP
 - geolocation to find nearby events (background or foreground)
 - a page specific to each venue or host
 - venue editor, event editor
   - info about parking/transportation
+
 ** Not MVP
 - analytics dashboard
 - sell banner ads

@@ -2,17 +2,23 @@ from django.contrib.auth.models import Group
 from rest_framework import serializers
 from api.models import *
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'password', 'first_name', 'last_name', 'groups']
+        fields = [
+            'username', 
+            'email', 
+            'first_name', 
+            'last_name', 
+            'pk'
+        ]
 
-class DjangoGroupSerializer(serializers.HyperlinkedModelSerializer):
+class DjangoGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
 
-class EventSerializer(serializers.HyperlinkedModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = [
@@ -25,15 +31,16 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
             'venue', 
             'start_time', 
             'end_time',
-            'id'
+            'id',
+            'pk'
         ]
 
-class VenueSerializer(serializers.HyperlinkedModelSerializer):
+class VenueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venue
         fields = ['name', 'address', 'twenty_one']
 
-class AddressSerializer(serializers.HyperlinkedModelSerializer):
+class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = [
@@ -48,4 +55,13 @@ class AddressSerializer(serializers.HyperlinkedModelSerializer):
             'governing_district',
             'postal_area',
             'country'
+        ]
+
+class EventInterestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventInterest
+        fields = [
+            'user',
+            'event',
+            'status'
         ]

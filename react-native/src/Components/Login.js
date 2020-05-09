@@ -7,7 +7,7 @@ import axios from 'axios'
 import { MainOrange, FooterGray } from '../Pallet'
 import { apiEndpoint } from '../API'
 
-import {logIn} from '../Store'
+import { fetchInfoAfterLogin } from '../Utils'
 
 export default Login = props => {
     const [username, setUsername] = useState("")
@@ -30,7 +30,7 @@ export default Login = props => {
                 password: password 
             })
             .then(response => {
-                dispatch(logIn(username))
+                fetchInfoAfterLogin(response.data, dispatch)
                 props.navigation.navigate('Events')
             })
             .catch(error => {

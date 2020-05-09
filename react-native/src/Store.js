@@ -3,11 +3,13 @@ import { createStore } from 'redux'
 
 const initialState = {
     loggedInUser: null,
-    events: []
+    events: [],
+    interests: []
 }
 
 // Actions 
 const UPDATE_EVENTS = 'UpdateEvents'
+const UPDATE_EVENT_INTEREST = 'UpdateEventInterest'
 const LOG_IN = 'LogIn'
 const LOG_OUT = 'LogOut'
 
@@ -19,17 +21,24 @@ export const updateEvents = (events) => {
     }
 }
 
-export const logIn = (username) =>{
+export const updateEventInterest = (interests) => {
+    return {
+        type: UPDATE_EVENT_INTEREST,
+        interests: interests
+    }
+}
+
+export const logIn = (user) =>{
     return {
         type: LOG_IN,
-        username: username
+        user: user
     }
 }
 
 export const logOut = () =>{
     return {
         type: LOG_IN,
-        username: null
+        user: null
     }
 }
 
@@ -42,19 +51,28 @@ const updateEventsReducer = (state, action) => {
     }
 }
 
+const updateEventInterestReducer = (state, action) => {
+    return {
+        ...state,
+        interests: action.interests
+    }
+}
+
+
 const authReducer = (state, action) => {
     return {
         ...state,
-        loggedInUser: action.username
+        loggedInUser: action.user
     }
 }
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case LOG_IN:        return authReducer(state, action)
-        case LOG_OUT:       return authReducer(state, action)
-        case UPDATE_EVENTS: return updateEventsReducer(state, action)
-        default:            return state
+        case LOG_IN:                return authReducer(state, action)
+        case LOG_OUT:               return authReducer(state, action)
+        case UPDATE_EVENTS:         return updateEventsReducer(state, action)
+        case UPDATE_EVENT_INTEREST: return updateEventInterestReducer(state, action)
+        default:                    return state
     }
 }
 

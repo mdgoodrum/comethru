@@ -15,20 +15,26 @@ export default InfoCard = (props) => {
     })
   }
 
+  const onLongPress = () => {
+    console.log('long press')
+  }
+
   const event = findEvent(events, props.eventId)
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.card}>
-        <View style={styles.cardHeader}>
-          <Text style={styles.cardTitle}>Description</Text>
+    <TouchableOpacity 
+      onPress={onPress}
+      onLongPress={onLongPress}>
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardTitle}>Description</Text>
+          </View>
+          <View style={styles.cardContent}>
+            <Text style={styles.description}>
+              {event.short_description}
+            </Text>
+          </View>
         </View>
-        <View style={styles.cardContent}>
-          <Text style={styles.description}>
-            {event.short_description}
-          </Text>
-        </View>
-      </View>
     </TouchableOpacity>
   );
 }

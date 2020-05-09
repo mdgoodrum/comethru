@@ -7,27 +7,58 @@ import { format, parse } from 'fecha';
 
 import { findEvent } from '../Utils'
 
-import { BackgroundGray } from '../Pallet'
+import { BackgroundGray, MainOrange } from '../Pallet'
 
 import Separator from './Separator';
 import Navbar from './Navbar';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const parseTime = (time) => {
     let parsed = parse(
         time.replace('T', ' '),
         'YYYY-MM-DD HH:mm:ss',
     )
-    let endTime = format(parsed, 'dddd MMMM Do, YYYY')
-    endTime = endTime + ' at '
-    return endTime + format(parsed, 'HH:mm A')
-
-
+    let formattedTime = format(parsed, 'MMMM Do')
+    formattedTime = formattedTime + ' at '
+    return formattedTime + format(parsed, 'HH:mm A')
 }
+
+// @spader These have to match up with what's in Python, which feels error prone
+const InterestState = Object.freeze({
+    NONE: 0,
+    INTERESTED: 1,
+    GOING: 2
+})
+
+const InterestToggle = (props) => {
+    const interests = useSelector(state => state.interests)
+
+    let state = InterestState.NONE
+    for (let interest of interests) {
+        if (interest.event === props.event.pk) {
+            state = InterestState[interest.status]
+        }
+    }
+
+    let goingStyle = state === InterestState.GOING ? styles.selectedInterestButton : styles.unselectedInterestButton
+    let interestedStyle = state === InterestState.Interested ? styles.selectedInterestButton : styles.unselectedInterestButton
+    return (
+        <View style={styles.interestButtons}>
+            <TouchableOpacity style={goingStyle}>
+                <Text>Going</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={interestedStyle}>
+                <Text>Interested</Text>
+            </TouchableOpacity>
+        </View>
+    )
+}
+
 export default EventDetail = (props) => {
     const events = useSelector(state => state.events)
+    const user = useSelector(state => state.user)
 
     const event = findEvent(events, props.route.params.eventId)
-
     const startTime = parseTime(event.start_time)
     const endTime = parseTime(event.end_time)
 
@@ -40,22 +71,14 @@ export default EventDetail = (props) => {
                 <View style={styles.imageContainer}>
                     <Image
                         style={styles.image}
-                        source={require('../Assets/beer-bourbon-bbq.png')} />
+                        source={require('../Assets/shaky-boots.jpg')} />
                 </View>
-                <View style={styles.locationAndTime}>
-                    <View style={styles.location}>
-                        <Text style={styles.locationHeader}>Location</Text>
-                        {/* <Text>{this.props.location}</Text> */}
-                        <Text>Atlantic Station</Text>
-                        <Text>241 20th Street NW</Text>
-                        <Text>Atlanta, GA</Text>
-                    </View>
-                    <View style={styles.time}>
-                        <Text style={styles.timeHeader}>Time</Text>
-                        <Text style={{fontSize: 12}}> {startTime} </Text>
-                        <Text style={{fontSize: 12}}> {endTime} </Text>
-                    </View>
-                </View>
+
+                <Text style={styles.time}> {startTime} - {endTime} </Text>
+
+                <Text style={styles.location}>Atlantic Station</Text>
+                <InterestToggle event={event}></InterestToggle>
+
                 <View style={styles.description}>
                     <Markdown styles={rawStyles.markdown}>
                         {event.description}
@@ -99,13 +122,12 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '30%',
-        minHeight: '30%',
-        width: '100%'
+        width: '100%',
     },
     image: {
         height: '80%',
         width: '90%',
+        borderRadius: 10,
     },
     locationAndTime: {
         display: 'flex',
@@ -118,10 +140,11 @@ const styles = StyleSheet.create({
         marginLeft: '5%',
     },
     time: {
-        display: 'flex',
-        flexDirection: 'column',
-        flexGrow: 1,
-        marginLeft: '2%',
+        marginLeft: '4%',
+        fontWeight: 'bold',
+        color: MainOrange,
+        fontSize: 16,
+        marginBottom: '1%'
     },
     locationHeader: {
         fontWeight: 'bold'
@@ -129,4 +152,15 @@ const styles = StyleSheet.create({
     timeHeader: {
         fontWeight: 'bold'
     },
+    interestButtons: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start'
+    },
+    selectedInterestButton: {
+        backgroundColor: MainOrange,
+    },
+    unselectedInterestButton: {
+
+    }
 });

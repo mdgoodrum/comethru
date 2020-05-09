@@ -53,3 +53,31 @@ class Address(models.Model):
 
     def __str__(self):
         return str(self.street_number) + " " + self.street_name + " " + self.street_type
+
+class EventInterest(models.Model):
+    NONE = 'NONE'
+    GOING = 'GOING'
+    INTERESTED = 'INTERESTED'
+    interest_types = (
+        (NONE, 'None'),
+        (GOING, 'Going'),
+        (INTERESTED, 'Interested')
+    )
+
+    user = models.ForeignKey(
+        'User', 
+        on_delete=models.CASCADE, 
+        related_name='user')
+
+    event = models.ForeignKey(
+        'Event', 
+        on_delete=models.CASCADE, 
+        related_name='user')
+
+    status = models.CharField(
+        max_length=16,
+        choices=interest_types,
+        default=NONE)
+
+    def __str__(self):
+        return f'{self.user}, {self.event}, {self.status}'
