@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import { MainOrange, FooterGray } from '../Pallet'
 import { apiEndpoint } from '../API'
+import { logIn } from '../Store'
 
 import { fetchInfoAfterLogin } from '../Utils'
 
@@ -30,12 +31,14 @@ export default Login = props => {
                 password: password 
             })
             .then(response => {
-                fetchInfoAfterLogin(response.data, dispatch)
+                let user = response.data
+                dispatch(logIn(user))
+                fetchInfoAfterLogin(user, dispatch)
                 props.navigation.navigate('Events')
             })
             .catch(error => {
                 // @spader @debug
-                console.log('bad :(')
+                console.log('Error in Login component after authorization:')
                 console.log(error)
             });
     }

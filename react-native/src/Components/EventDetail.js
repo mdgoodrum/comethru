@@ -36,6 +36,11 @@ const InterestState = Object.freeze({
 })
 
 const InterestToggle = (props) => {
+    let interests = useSelector(state => state.interests)
+    let onPress = (desiredState) => {
+
+    }
+
     // Going button, with an icon if it's selected
     let goingButtonChildren = []
     if (props.interestState === InterestState.Going) {
@@ -105,7 +110,6 @@ export default EventDetail = (props) => {
                     'status': interestState
                 })
                 .then(response => {
-                    console.log('gud')
                 })
                 .catch(error => {
                     console.log('bad')

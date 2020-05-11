@@ -5,7 +5,6 @@ These are actual features
 - Filters
   - Basic association between user and filters
   - Allow user to modify their feed with temporary filters
-- A way to mark events as not / going / interested
 - Add push notifications
 - A system for people to redeem their free shit
 - A way to check in at events. Preferably automatically.
@@ -21,6 +20,8 @@ These are things that are done halfway
 - Make the nav bar work
 - Make another pass at the CSS
 - Make the cards pretty
+- A way to mark events as not / going / interested
+  - [ ] Fix the CSS on the buttons
 
 These are things that might not be MVP
 - geolocation to find nearby events (background or foreground)

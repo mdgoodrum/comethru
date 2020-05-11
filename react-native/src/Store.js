@@ -3,9 +3,9 @@ import { createStore } from 'redux'
 
 const initialState = {
     loggedInUser: null,
-    events: [],
-    venues: [],
-    interests: []
+    events: {},
+    venues: {},
+    interests: {}
 }
 
 // Actions 

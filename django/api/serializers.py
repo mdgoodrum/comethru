@@ -71,5 +71,6 @@ class EventInterestSerializer(serializers.ModelSerializer):
         fields = [
             'user',
             'event',
-            'status'
+            'status',
+            'id'
         ]

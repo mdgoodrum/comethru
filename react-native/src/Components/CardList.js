@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 import { useSelector } from 'react-redux'
 
 import InfoCard from './InfoCard';
@@ -9,9 +9,7 @@ export default CardList = (props) => {
 
   return (
     <View style={styles.smallImagesContainer}>
-      {events.map((event, key) => {
-        return <InfoCard key={key} eventId={event.id} />;
-      })}
+      {Object.keys(events).map(id => <InfoCard key={id} eventId={id} />)}
     </View>
   );
 }

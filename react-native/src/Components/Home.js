@@ -5,7 +5,7 @@ const axios = require('axios');
 import { apiEndpoint } from '../API'
 
 import { BackgroundGray, MainOrange } from '../Pallet'
-import { fetchVenuesForLoadedEvents } from '../Utils'
+import { fetchVenuesForLoadedEvents, fetchEvents } from '../Utils'
 import CardList from './CardList';
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -23,20 +23,7 @@ export default Home = (props) => {
         props.navigation.navigate('Create Venue')
     }
 
-    useEffect(() =>{
-        axios
-            .post(apiEndpoint('/events/'))
-            .then(response => {
-                let events = response.data
-                dispatch(updateEvents(events))
-                fetchVenuesForLoadedEvents(events, dispatch)
-            })
-            .catch(error => {
-                // @spader @debug
-                console.log('Failed to retrieve event data.');
-                console.log(error);
-            });
-    }, [])
+    useEffect(() => fetchEvents(dispatch), [])
 
     return (
         <View style={styles.container}>
