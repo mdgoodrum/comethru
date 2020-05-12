@@ -9,8 +9,10 @@ import { apiEndpoint } from '../API'
 import { logIn } from '../Store'
 
 import { fetchInfoAfterLogin } from '../Utils'
+import { useNavigation } from '@react-navigation/native'
 
 export default Login = props => {
+    const navigation = useNavigation()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
@@ -34,7 +36,7 @@ export default Login = props => {
                 let user = response.data
                 dispatch(logIn(user))
                 fetchInfoAfterLogin(user, dispatch)
-                props.navigation.navigate('Events')
+                navigation.navigate('DrawerStack')
             })
             .catch(error => {
                 // @spader @debug
@@ -58,7 +60,7 @@ export default Login = props => {
                 </TouchableOpacity>
             </View>
             <View style={styles.logoContainer}>
-                <Text style={styles.logo}>comethru</Text>
+                <Text style={styles.logo}>comethru!</Text>
             </View>
             <View style={styles.imageContainer}>
                 <Image style={styles.image} source={require('../Assets/attractive-people.png')} />
@@ -147,7 +149,7 @@ const styles = StyleSheet.create({
     },
     logoContainer: {
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
         marginRight: '5%',
     },
     logo: {

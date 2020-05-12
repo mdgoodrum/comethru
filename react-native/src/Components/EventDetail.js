@@ -13,7 +13,6 @@ import { findEvent, findVenue, getInterestState } from '../Utils'
 
 import { BackgroundGray, MainOrange } from '../Pallet'
 
-import Separator from './Separator';
 import Navbar from './Navbar';
 import { useFocusEffect } from '@react-navigation/native';
 import { apiEndpoint } from '../API';
@@ -127,8 +126,6 @@ export default EventDetail = (props) => {
 
     return (
         <View style={styles.content}>
-            <Navbar />
-            <Separator />
             <ScrollView style={styles.content}>
                 <View style={styles.imageContainer}>
                     <Image
@@ -152,6 +149,7 @@ export default EventDetail = (props) => {
                     </Markdown>
                 </View>
             </ScrollView>
+            <Navbar />
         </View>
     );
 }
@@ -181,6 +179,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         flexDirection: 'column',
+        minHeight: '92%'
     },
     description: {
         textAlign: 'left',

@@ -14,7 +14,6 @@ const PhotoPlaceholder = require('../Assets/photo-placeholder.png')
 
 // CT Components
 import Navbar from './Navbar'
-import Separator from './Separator'
 
 
 const OpenSans = props => <Text style={{ ...props.style, fontFamily: 'OpenSans-Bold' }}>{props.children}</Text>
@@ -247,8 +246,6 @@ export default class SignUp extends Component {
     render() {
         return (
             <View>
-                <Navbar />
-                <Separator />
                 <View style={styles.spacer} />
                 <View style={styles.profilePictureContainer}>
                     <Image style={styles.profilePicture} source={PhotoPlaceholder} />
@@ -282,6 +279,8 @@ export default class SignUp extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <Navbar />
+
             </View>
 
         )
