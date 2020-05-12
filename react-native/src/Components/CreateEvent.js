@@ -41,7 +41,7 @@ export default class Login extends Component {
         axios
             .post(apiEndpoint('/models/events/'), body)
             .then(() => {
-                this.props.history.push('/home')
+                this.props.navigation.navigate('Events')
             })
             .catch(error => {
                 console.log(error)
@@ -130,7 +130,7 @@ export default class Login extends Component {
     }
 
     cancel() {
-        this.props.history.push('/home')
+        this.props.navigation.navigate('Events')
     }
 
     render() {
