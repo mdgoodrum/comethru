@@ -26,10 +26,13 @@ export default Home = (props) => {
     useEffect(() => fetchEvents(dispatch), [])
 
     return (
-        <View style={styles.container}>
-            <ScrollView style={styles.content}>
-                <CardList />
-            </ScrollView>
+        <View>
+            <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
+                <ScrollView style={styles.content}>
+                    <CardList />
+                </ScrollView>
+            </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity   
                     style={styles.myButton}
@@ -44,6 +47,7 @@ export default Home = (props) => {
                     <Text style={styles.createEventButtonText}>Create Event</Text>
                 </TouchableOpacity>
             </View>
+            </SafeAreaView>
         </View>
     );
 }
@@ -59,7 +63,9 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     buttonContainer: {
-        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
     },
     myButton: {
         height: 80,
