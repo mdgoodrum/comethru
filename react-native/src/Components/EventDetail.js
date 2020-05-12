@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo'
 
 import axios from 'axios'
@@ -126,30 +126,32 @@ export default EventDetail = (props) => {
 
     return (
         <View style={styles.content}>
-            <ScrollView style={styles.content}>
-                <View style={styles.imageContainer}>
-                    <Image
-                        style={styles.image}
-                        source={require('../Assets/shaky-boots.jpg')} />
-                </View>
+            <SafeAreaView style={styles.container}>
+                <ScrollView style={styles.content}>
+                    <View style={styles.imageContainer}>
+                        <Image
+                            style={styles.image}
+                            source={require('../Assets/shaky-boots.jpg')} />
+                    </View>
 
-                <Text style={styles.time}> {startTime} - {endTime} </Text>
+                    <Text style={styles.time}> {startTime} - {endTime} </Text>
 
-                <Text style={styles.title}>{event.title}</Text>
+                    <Text style={styles.title}>{event.title}</Text>
 
-                <Text style={styles.location}>{venue.name}</Text>
-                <InterestToggle 
-                  eventId={eventId}
-                />
+                    <Text style={styles.location}>{venue.name}</Text>
+                    <InterestToggle 
+                    eventId={eventId}
+                    />
 
-                <Text style={styles.descriptionHeader}>Details</Text>
-                <View style={styles.description}>
-                    <Markdown styles={rawStyles.markdown}>
-                        {event.description}
-                    </Markdown>
-                </View>
-            </ScrollView>
-            <Navbar />
+                    <Text style={styles.descriptionHeader}>Details</Text>
+                    <View style={styles.description}>
+                        <Markdown styles={rawStyles.markdown}>
+                            {event.description}
+                        </Markdown>
+                    </View>
+                </ScrollView>
+                <Navbar />
+            </SafeAreaView>
         </View>
     );
 }

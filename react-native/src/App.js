@@ -13,6 +13,8 @@ import EventDetail from './Components/EventDetail'
 import Home from './Components/Home'
 import Login from './Components/Login'
 import SignUp from './Components/SignUp'
+import EditProfile from './Components/EditProfile'
+import CreateAddress from './Components/CreateAddress'
 import CreateEvent from './Components/CreateEvent'
 import CreateVenue from './Components/CreateVenue'
 import { DrawerComponent } from './Components/Navbar'
@@ -23,6 +25,8 @@ const ContentStack = createStackNavigator()
 const ContentStackComponent = props => (
   <ContentStack.Navigator initialRouteName='Events' headerMode='none'>
     <ContentStack.Screen name='Events' component={Home} />
+    <ContentStack.Screen name='Edit Profile' component={EditProfile} />
+    <ContentStack.Screen name='Create Address' component={CreateAddress} />
     <ContentStack.Screen name='Create Event' component={CreateEvent} />
     <ContentStack.Screen name='Create Venue' component={CreateVenue} />
     <ContentStack.Screen name='Event' component={EventDetail} />
