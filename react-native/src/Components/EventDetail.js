@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 
 import axios from 'axios'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Markdown from 'react-native-simple-markdown';
 import { format, parse } from 'fecha';
@@ -17,6 +17,7 @@ import Separator from './Separator';
 import Navbar from './Navbar';
 import { useFocusEffect } from '@react-navigation/native';
 import { apiEndpoint } from '../API';
+import { updateEventInterest } from '../Store';
 
 const parseTime = (time) => {
     let parsed = parse(
@@ -36,14 +37,18 @@ const InterestState = Object.freeze({
 })
 
 const InterestToggle = (props) => {
-    let interests = useSelector(state => state.interests)
-    let onPress = (desiredState) => {
+    const interests = useSelector(state => state.interests)
+    let interest = getInterestState(interests, props.eventId)
+    const dispatch = useDispatch()
 
+    let onPress = (desiredState) => {
+        interest.status = desiredState
+        dispatch(updateEventInterest({...interests}))
     }
 
     // Going button, with an icon if it's selected
     let goingButtonChildren = []
-    if (props.interestState === InterestState.Going) {
+    if (interest.status === InterestState.Going) {
         goingButtonChildren.push(
             <Icon
                 name="check"
@@ -55,13 +60,13 @@ const InterestToggle = (props) => {
     let goingButton =
         <TouchableOpacity
             style={styles.interestButton}
-            onPress={() => props.setInterestState(InterestState.Going)}>
+            onPress={() => onPress(InterestState.Going)}>
             {goingButtonChildren}
         </TouchableOpacity>
 
     // Interested button. Ditto.
     let interestedButtonChildren = []
-    if (props.interestState === InterestState.Interested) {
+    if (interest.status === InterestState.Interested) {
         interestedButtonChildren.push(
             <Icon
                 name="check"
@@ -73,7 +78,7 @@ const InterestToggle = (props) => {
     let interestedButton =
         <TouchableOpacity
             style={styles.interestButton}
-            onPress={() => props.setInterestState(InterestState.Interested)}>
+            onPress={() => onPress(InterestState.Interested)}>
             {interestedButtonChildren}
         </TouchableOpacity>
 
@@ -87,27 +92,27 @@ const InterestToggle = (props) => {
 }
 
 export default EventDetail = (props) => {
-    const events = useSelector(state => state.events)
     const interests = useSelector(state => state.interests)
+    const events = useSelector(state => state.events)
     const venues = useSelector(state => state.venues)
     const user = useSelector(state => state.loggedInUser)
 
-    const event = findEvent(events, props.route.params.eventId)
+    const eventId = props.route.params.eventId 
+    const event = findEvent(events, eventId)
     const venue = findVenue(venues, event.venue)
-
-    const [interestState, setInterestState] = useState(getInterestState(interests, event))
 
     useFocusEffect(useCallback(() => {
         // Do nothing on focus 
 
         // PUT back to the database on blur. This callback is run on cleanup, which == blur.
         return () => {
+            let interest = getInterestState(interests, eventId)
             // @spader There's a bug where the database gets updated but the local copy doesn't.
             axios
                 .put(apiEndpoint('/event_interest/'), {
                     'event': event.id,
                     'user': user.id,
-                    'status': interestState
+                    'status': interest.status
                 })
                 .then(response => {
                 })
@@ -115,7 +120,7 @@ export default EventDetail = (props) => {
                     console.log('bad')
                 })
         }
-    }, [interestState]))
+    }, []))
 
     const startTime = parseTime(event.start_time)
     const endTime = parseTime(event.end_time)
@@ -136,7 +141,9 @@ export default EventDetail = (props) => {
                 <Text style={styles.title}>{event.title}</Text>
 
                 <Text style={styles.location}>{venue.name}</Text>
-                <InterestToggle interestState={interestState} setInterestState={setInterestState}></InterestToggle>
+                <InterestToggle 
+                  eventId={eventId}
+                />
 
                 <Text style={styles.descriptionHeader}>Details</Text>
                 <View style={styles.description}>

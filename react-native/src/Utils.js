@@ -14,14 +14,14 @@ export const findVenue = (venues, id) => {
     return venues[id]
 }
 
-export const getInterestState = (interests, event) => {
-    for (let interest of interests) {
-        if (interest.event === event.id) {
-            return interest.status
+export const getInterestState = (interests, eventId) => {
+    for (let [interestId, interest] of Object.entries(interests)) {
+        if (interestId == eventId) {
+            return interest
         }
     }
 
-    return InterestState.None
+    return null
 }
 
 export const fetchEvents = (dispatch) => {
@@ -81,7 +81,7 @@ export const fetchInfoAfterLogin = (user, dispatch) => {
             interests
         ), {})
         
-        dispatch(updateEventInterest(response.data))
+        dispatch(updateEventInterest(interests))
     })
     .catch(error => {
         console.log(error)
