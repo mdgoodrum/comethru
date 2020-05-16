@@ -1,141 +1,106 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native'
 import { MainOrange, FooterGray } from '../Pallet'
 
 import { apiEndpoint } from '../API'
 import axios from 'axios'
 
-export default class Login extends Component {
-    constructor(props) {
-        super(props)
+export default CreateEvent = (props) => {
 
-        this.state = {
-            title: "",
-            date_published: undefined,
-            short_description: "",
-            description: "",
-            twenty_one: false,
-            tags: [],
-            organizer: "",
-            venue: "",
-            start_time: undefined,
-            end_time: undefined,
-        }
-    }
+    const [title, setTitle] = useState("")
+    const [datePublished, setDatePublished] = useState(undefined)
+    const [shortDescription, setShortDescription] = useState("")
+    const [description, setDescription] = useState("")
+    const [twentyOne, setTwentyOne] = useState(false)
+    const [tags, setTags] = useState([])
+    const [organizer, setOrganizer] = useState("")
+    const [venue, setVenue] = useState("")
+    const [startTime, setStartTime] = useState(undefined)
+    const [endTime, setEndTime] = useState(undefined)
 
-    onPress() {
+    onPress = () => {
         const body = {
-            "title": this.state.title,
-            "date_published": this.state.date_published || new Date(),
-            "short_description": this.state.short_description,
-            "description": this.state.description,
-            "twenty_one": this.state.twenty_one,
-            "venue": 'http://localhost:8000/api/models/venues/1/',
-            "organizer": 'http://localhost:8000/api/models/users/1/',
-            "start_time": this.state.start_time || new Date(),
-            "end_time": this.state.end_time || new Date()
+            "title": title,
+            "date_published": datePublished || new Date(),
+            "short_description": shortDescription,
+            "description": description,
+            "twenty_one": twentyOne,
+            "venue": '1',
+            "organizer": '1',
+            "start_time": startTime || new Date(),
+            "end_time": endTime || new Date()
         };
-
-        console.log(body)
-
         axios
             .post(apiEndpoint('/models/events/'), body)
             .then(() => {
-                this.props.navigation.navigate('Events')
+                props.navigation.navigate('Events')
             })
             .catch(error => {
                 console.log(error)
             });
     }
 
-    onChangeTitle(title) {
-        this.setState({
-            title
-        })
+    onChangeTitle = (title) => {
+        setTitle(title)
     }
 
-    onChangeDatePublished(date_published) {
+    onChangeDatePublished = (date_published) => {
         const date = new Date(date_published);
         if (isNaN(date.getTime())) {
-            this.setState({
-                date_published: new Date()
-            })
+            setDatePublished(new Date())
         } else {
-            this.setState({
-                date_published
-            })
+            setDatePublished(date_published)
         }
     }
 
-    onChangeShortDescription(short_description) {
-        this.setState({
-            short_description
-        })
+    onChangeShortDescription = (short_description) => {
+        setShortDescription(short_description)
     }
 
-    onChangeDescription(description) {
-        this.setState({
-            description
-        })
+    onChangeDescription = (description) => {
+        setDescription(description)
     }
 
-    onChangeTwentyOne(input) {
+    onChangeTwentyOne = (input) => {
         if (input === '') {
-            this.setState({
-                twenty_one: false
-            })
+            setTwentyOne(false)
         } else {
-            this.setState({
-                twenty_one: true
-            })
+            setTwentyOne(true)
         }
     }
 
-    onChangeOrganizer(organizer) {
-        this.setState({
-            organizer
-        })
+    onChangeOrganizer = (organizer) => {
+        setOrganizer(organizer)
     }
 
-    onChangeVenue(venue) {
-        this.setState({
-            venue
-        })
+    onChangeVenue = (venue) => {
+        setVenue(venue)
     }
 
-    onChangeStartTime(start_time) {
+    onChangeStartTime = (start_time) => {
         const date = new Date(start_time);
         if (isNaN(date.getTime())) {
-            this.setState({
-                start_time: new Date()
-            })
+            setStartTime(new Date())
         } else {
-            this.setState({
-                start_time
-            })
+            setStartTime(start_time)
         }
     }
 
-    onChangeEndTime(end_time) {
+    onChangeEndTime = (end_time) => {
         const date = new Date(end_time);
         if (isNaN(date.getTime())) {
-            this.setState({
-                end_time: new Date()
-            })
+            setEndTime(new Date())
         } else {
-            this.setState({
-                end_time
-            })
+            setEndTime(end_time)
         }
     }
 
-    cancel() {
-        this.props.navigation.navigate('Events')
+    cancel = () => {
+        props.navigation.navigate('Events')
     }
 
-    render() {
-        return (
-            <View style={styles.content}>
+    return (
+        <View style={styles.content}>
             <View style={styles.usernameAndPasswordContainer}>
                 <Text style={styles.usernameAndPasswordText}>Event Name</Text>
                 <TextInput
@@ -152,32 +117,32 @@ export default class Login extends Component {
                     style={styles.usernameAndPasswordEntry}
                     autoCapitalize={"none"}
                     onChangeText={text => this.onChangeShortDescription(text)} />
-                 <Text style={styles.usernameAndPasswordText}>Description</Text>
+                    <Text style={styles.usernameAndPasswordText}>Description</Text>
                 <TextInput
                     style={styles.usernameAndPasswordEntry}
                     autoCapitalize={"none"}
                     onChangeText={text => this.onChangeDescription(text)} />
-                 <Text style={styles.usernameAndPasswordText}>21+</Text>
+                    <Text style={styles.usernameAndPasswordText}>21+</Text>
                 <TextInput
                     style={styles.usernameAndPasswordEntry}
                     autoCapitalize={"none"}
                     onChangeText={text => this.onChangeTwentyOne(text)} />
-                 <Text style={styles.usernameAndPasswordText}>Organizer</Text>
-                 <TextInput
+                    <Text style={styles.usernameAndPasswordText}>Organizer</Text>
+                    <TextInput
                     style={styles.usernameAndPasswordEntry}
                     autoCapitalize={"none"}
                     onChangeText={text => this.onChangeVenue(text)} />
-                 <Text style={styles.usernameAndPasswordText}>Venue</Text>
+                    <Text style={styles.usernameAndPasswordText}>Venue</Text>
                 <TextInput
                     style={styles.usernameAndPasswordEntry}
                     autoCapitalize={"none"}
                     onChangeText={text => this.onChangeOrganizer(text)} />
-                 <Text style={styles.usernameAndPasswordText}>Start time</Text>
+                    <Text style={styles.usernameAndPasswordText}>Start time</Text>
                 <TextInput
                     style={styles.usernameAndPasswordEntry}
                     autoCapitalize={"none"}
                     onChangeText={text => this.onChangeStartTime(text)} />
-                 <Text style={styles.usernameAndPasswordText}>End Time</Text>
+                    <Text style={styles.usernameAndPasswordText}>End Time</Text>
                 <TextInput
                     style={styles.usernameAndPasswordEntry}
                     autoCapitalize={"none"}
@@ -198,8 +163,7 @@ export default class Login extends Component {
                 </TouchableOpacity>
             </View>
         </View>
-        )
-    }
+    )
 }
 
 const styles = StyleSheet.create({
