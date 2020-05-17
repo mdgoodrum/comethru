@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, TextInput, SafeAreaView } from 'react-native'
 import { MainOrange, FooterGray } from '../Pallet'
 
 import { apiEndpoint } from '../API'
@@ -101,67 +101,70 @@ export default CreateEvent = (props) => {
 
     return (
         <View style={styles.content}>
-            <View style={styles.usernameAndPasswordContainer}>
-                <Text style={styles.usernameAndPasswordText}>Event Name</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeTitle(text)} />
-                <Text style={styles.usernameAndPasswordText}>Date published</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeDatePublished(text)} />
-                <Text style={styles.usernameAndPasswordText}>Short Description</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeShortDescription(text)} />
-                    <Text style={styles.usernameAndPasswordText}>Description</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeDescription(text)} />
-                    <Text style={styles.usernameAndPasswordText}>21+</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeTwentyOne(text)} />
-                    <Text style={styles.usernameAndPasswordText}>Organizer</Text>
+            <SafeAreaView>
+                <View style={styles.textFieldsContainer}>
+                    <Text style={styles.sectionTitle}>Create Event</Text>
+                    <Text style={styles.texFieldLabel}>Event Name</Text>
                     <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeVenue(text)} />
-                    <Text style={styles.usernameAndPasswordText}>Venue</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeOrganizer(text)} />
-                    <Text style={styles.usernameAndPasswordText}>Start time</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeStartTime(text)} />
-                    <Text style={styles.usernameAndPasswordText}>End Time</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeEndTime(text)} />
-            </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity   
-                    style={styles.myButton}
-                    onPress={() => this.cancel()}
-                    >
-                    <Text style={styles.createEventButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity   
-                    style={styles.myButton}
-                    onPress={() => this.onPress()}
-                    >
-                    <Text style={styles.createEventButtonText}>Create Event</Text>
-                </TouchableOpacity>
-            </View>
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeTitle(text)} />
+                    <Text style={styles.texFieldLabel}>Date published</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeDatePublished(text)} />
+                    <Text style={styles.texFieldLabel}>Short Description</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeShortDescription(text)} />
+                        <Text style={styles.texFieldLabel}>Description</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeDescription(text)} />
+                        <Text style={styles.texFieldLabel}>21+</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeTwentyOne(text)} />
+                        <Text style={styles.texFieldLabel}>Organizer</Text>
+                        <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeVenue(text)} />
+                        <Text style={styles.texFieldLabel}>Venue</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeOrganizer(text)} />
+                        <Text style={styles.texFieldLabel}>Start time</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeStartTime(text)} />
+                        <Text style={styles.texFieldLabel}>End Time</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeEndTime(text)} />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity   
+                        style={styles.myButton}
+                        onPress={() => this.cancel()}
+                        >
+                        <Text style={styles.buttonText}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity   
+                        style={styles.myButton}
+                        onPress={() => this.onPress()}
+                        >
+                        <Text style={styles.buttonText}>Create Event</Text>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
         </View>
     )
 }
@@ -169,54 +172,57 @@ export default CreateEvent = (props) => {
 const styles = StyleSheet.create({
     content: {
         flex: 1,
-        flexDirection: 'column',
+        height: '100%',
     },
-    signUpButton: {
+    sectionTitle: {
+        fontWeight: 'bold',
+        fontSize: 25,
+    },
+    buttonContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: '40%',
+    },
+    myButton: {
         backgroundColor: MainOrange,
         textAlign: 'center',
         borderRadius: 5,
-        marginRight: '5%',
-        height: '75%',
-        minHeight: '75%',
+        height: '10%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
-    signUpButtonText: {
+    buttonText: {
         color: '#fff',
         fontWeight: 'bold',
         fontStyle: 'italic',
-        paddingLeft: '2%',
-        paddingRight: '2%'
+        paddingLeft: '5%',
+        paddingRight: '5%'
     },
-    myButton: {
-        height: 80,
-        width: 80,
-        borderRadius: 160,
-        backgroundColor: MainOrange,
-        justifyContent: 'center',
-    },
-    createEventButtonText: {
-        color: '#fff',
-        textAlign: 'center',
-        fontWeight: 'bold',
-        fontStyle: 'italic',
-    },
-    usernameAndPasswordText: {
-        color: MainOrange,
-        fontWeight: 'bold',
-        letterSpacing: 1,
-        marginBottom: '2%',
-        marginTop: '1%'
-    },
-    usernameAndPasswordEntry: {
+    textFieldEntry: {
         borderColor: MainOrange,
         borderWidth: 1,
         borderRadius: 5,
-        width: '60%',
+        width: '90%',
         height: '4%',
-        marginBottom: '3%',
+        marginTop: '2%',
         textAlign: 'center'
+    },
+    textFieldsContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: '68%',
+        paddingTop: '5%',
+    },
+    texFieldLabel: {
+        color: 'black',
+        letterSpacing: 1,
+        marginBottom: '2%',
+        marginTop: '1%'
     },
 })

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, TextInput, SafeAreaView } from 'react-native'
 import { MainOrange, FooterGray } from '../Pallet'
 
 import { apiEndpoint } from '../API'
@@ -49,37 +49,40 @@ export default CreateVenue = (props) => {
 
     return (
         <View style={styles.content}>
-            <View style={styles.usernameAndPasswordContainer}>
-                <Text style={styles.usernameAndPasswordText}>Venue Name</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeName(text)} />
-                <Text style={styles.usernameAndPasswordText}>Venue Address</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeAddress(text)} />
-                <Text style={styles.usernameAndPasswordText}>21+</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeTwentyOne(text)} />
-            </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity   
-                    style={styles.myButton}
-                    onPress={() => this.cancel()}
-                    >
-                    <Text style={styles.createEventButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity   
-                    style={styles.myButton}
-                    onPress={() => this.onPress()}
-                    >
-                    <Text style={styles.createEventButtonText}>Create Venue</Text>
-                </TouchableOpacity>
-            </View>
+            <SafeAreaView>
+                <View style={styles.textFieldsContainer}>
+                    <Text style={styles.sectionTitle}>Create Venue</Text>
+                    <Text style={styles.texFieldLabel}>Venue Name</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeName(text)} />
+                    <Text style={styles.texFieldLabel}>Venue Address</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeAddress(text)} />
+                    <Text style={styles.texFieldLabel}>21+</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeTwentyOne(text)} />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity   
+                        style={styles.myButton}
+                        onPress={() => this.cancel()}
+                        >
+                        <Text style={styles.buttonText}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity   
+                        style={styles.myButton}
+                        onPress={() => this.onPress()}
+                        >
+                        <Text style={styles.buttonText}>Create Venue</Text>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
         </View>
     )
 }
@@ -87,54 +90,57 @@ export default CreateVenue = (props) => {
 const styles = StyleSheet.create({
     content: {
         flex: 1,
-        justifyContent: 'center',
+        height: '100%',
+    },
+    sectionTitle: {
+        fontWeight: 'bold',
+        fontSize: 25,
+    },
+    buttonContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: '40%',
     },
     myButton: {
-        height: 80,
-        width: 80,
-        borderRadius: 160,
-        backgroundColor: MainOrange,
-        justifyContent: 'center',
-    },
-    createEventButtonText: {
-        color: '#fff',
-        textAlign: 'center',
-        fontWeight: 'bold',
-        fontStyle: 'italic',
-    },
-    usernameAndPasswordEntry: {
-        borderColor: MainOrange,
-        borderWidth: 1,
-        borderRadius: 5,
-        width: '60%',
-        height: '15%',
-        marginBottom: '5%',
-        textAlign: 'center'
-    },
-    signUpButton: {
         backgroundColor: MainOrange,
         textAlign: 'center',
         borderRadius: 5,
-        marginRight: '5%',
-        height: '75%',
-        minHeight: '75%',
+        height: '10%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
-    signUpButtonText: {
+    buttonText: {
         color: '#fff',
         fontWeight: 'bold',
         fontStyle: 'italic',
-        paddingLeft: '2%',
-        paddingRight: '2%'
+        paddingLeft: '5%',
+        paddingRight: '5%'
     },
-    usernameAndPasswordText: {
-        color: MainOrange,
-        fontWeight: 'bold',
+    textFieldEntry: {
+        borderColor: MainOrange,
+        borderWidth: 1,
+        borderRadius: 5,
+        width: '90%',
+        height: '8%',
+        marginTop: '12%',
+        textAlign: 'center'
+    },
+    textFieldsContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: '60%',
+        paddingTop: '5%',
+    },
+    texFieldLabel: {
+        color: 'black',
         letterSpacing: 1,
         marginBottom: '2%',
-        marginTop: '6%'
+        marginTop: '16%'
     },
 })

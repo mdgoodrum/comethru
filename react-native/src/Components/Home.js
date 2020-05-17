@@ -88,10 +88,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     myButton: {
-        height: 80,
+        height: 40,
         width: 80,
-        borderRadius: 160,
         backgroundColor: MainOrange,
+        textAlign: 'center',
+        borderRadius: 5,
+        flexDirection: 'column',
         justifyContent: 'center',
     },
     buttonText: {

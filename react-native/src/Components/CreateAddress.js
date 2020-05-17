@@ -7,7 +7,8 @@ import {
     TextInput, 
     ToastAndroid, 
     Platform,
-    Alert, 
+    Alert,
+    SafeAreaView,
 } from 'react-native'
 import { MainOrange, FooterGray } from '../Pallet'
 
@@ -102,47 +103,50 @@ export default CreateAddress = (props) => {
 
     return (
         <View style={styles.content}>
-            <View style={styles.usernameAndPasswordContainer}>
-                <Text style={styles.usernameAndPasswordText}>Street Address</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeStreetAddress(text)} />
-                <Text style={styles.usernameAndPasswordText}>Street Address Line 2</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeStreetAddress2(text)} />
-                <Text style={styles.usernameAndPasswordText}>City</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeCity(text)} />
-                <Text style={styles.usernameAndPasswordText}>State</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangeState(text)} />
-                <Text style={styles.usernameAndPasswordText}>Postal / Zip Code</Text>
-                <TextInput
-                    style={styles.usernameAndPasswordEntry}
-                    autoCapitalize={"none"}
-                    onChangeText={text => this.onChangePostalZip(text)} />
-            </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity   
-                    style={styles.myButton}
-                    onPress={() => this.cancel()}
-                    >
-                    <Text style={styles.buttonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity   
-                    style={styles.myButton}
-                    onPress={() => this.onPress()}
-                    >
-                    <Text style={styles.buttonText}>Create Address</Text>
-                </TouchableOpacity>
-            </View>
+            <SafeAreaView>
+                <View style={styles.textFieldsContainer}>
+                    <Text style={styles.sectionTitle}>Create Address</Text>
+                    <Text style={styles.texFieldLabel}>Street Address</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeStreetAddress(text)} />
+                    <Text style={styles.texFieldLabel}>Street Address Line 2</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeStreetAddress2(text)} />
+                    <Text style={styles.texFieldLabel}>City</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeCity(text)} />
+                    <Text style={styles.texFieldLabel}>State</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangeState(text)} />
+                    <Text style={styles.texFieldLabel}>Postal / Zip Code</Text>
+                    <TextInput
+                        style={styles.textFieldEntry}
+                        autoCapitalize={"none"}
+                        onChangeText={text => this.onChangePostalZip(text)} />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity   
+                        style={styles.myButton}
+                        onPress={() => this.cancel()}
+                        >
+                        <Text style={styles.buttonText}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity   
+                        style={styles.myButton}
+                        onPress={() => this.onPress()}
+                        >
+                        <Text style={styles.buttonText}>Create Address</Text>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
         </View>
     )
 }
@@ -150,39 +154,57 @@ export default CreateAddress = (props) => {
 const styles = StyleSheet.create({
     content: {
         flex: 1,
-        justifyContent: 'center',
+        height: '100%',
+    },
+    sectionTitle: {
+        fontWeight: 'bold',
+        fontSize: 25,
     },
     buttonContainer: {
+        display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: '40%',
+    },
+    textFieldsContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: '60%',
+        paddingTop: '5%',
     },
     myButton: {
-        height: 80,
-        width: 80,
-        borderRadius: 160,
         backgroundColor: MainOrange,
+        textAlign: 'center',
+        borderRadius: 5,
+        height: '10%',
+        display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
+        alignItems: 'center',
     },
     buttonText: {
         color: '#fff',
-        textAlign: 'center',
         fontWeight: 'bold',
         fontStyle: 'italic',
+        paddingLeft: '5%',
+        paddingRight: '5%'
     },
-    usernameAndPasswordEntry: {
+    textFieldEntry: {
         borderColor: MainOrange,
         borderWidth: 1,
         borderRadius: 5,
         width: '90%',
         height: '8%',
-        marginBottom: '2%',
+        marginTop: '12%',
         textAlign: 'center'
     },
-    usernameAndPasswordText: {
-        color: MainOrange,
-        fontWeight: 'bold',
+    texFieldLabel: {
+        color: 'black',
         letterSpacing: 1,
         marginBottom: '2%',
-        marginTop: '6%'
+        marginTop: '16%'
     },
 })
