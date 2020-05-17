@@ -37,7 +37,7 @@ const InterestState = Object.freeze({
 
 const InterestToggle = (props) => {
     const interests = useSelector(state => state.interests)
-    let interest = getInterestState(interests, props.eventId)
+    let interest = getInterestState(interests, props.eventId) || '';
     const dispatch = useDispatch()
 
     let onPress = (desiredState) => {
@@ -105,7 +105,7 @@ export default EventDetail = (props) => {
 
         // PUT back to the database on blur. This callback is run on cleanup, which == blur.
         return () => {
-            let interest = getInterestState(interests, eventId)
+            let interest = getInterestState(interests, eventId) || ''
             // @spader There's a bug where the database gets updated but the local copy doesn't.
             axios
                 .put(apiEndpoint('/event_interest/'), {
