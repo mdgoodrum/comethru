@@ -9,23 +9,6 @@ import { useNavigation } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator()
 
-const Booth = props => {
-  return <Text>Booth</Text>
-}
-
-const Louie = props => {
-  return <Text>Louie</Text>
-}
-
-export const DrawerComponent = props => {
-  return (
-    <Drawer.Navigator initialRouteName='Louie'>
-      <Drawer.Screen name='Louie' component={Louie} />
-      <Drawer.Screen name='Booth' component={Booth} />
-    </Drawer.Navigator>
-
-  )
-}
 
 export default Navbar = props => {
   const navigation = useNavigation()
@@ -51,7 +34,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: MainOrange,
-    height: '100%'
+    minHeight: '8%',
   },
   menuIcon: {
     marginTop: '2%'

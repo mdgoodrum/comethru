@@ -124,6 +124,8 @@ https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubunt
 https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04
 https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
 
+A nice guide on using React Navigation
+https://shift.infinite.red/react-navigation-drawer-tutorial-a802fc3ee6dc
 * spader
 The CSS box model works like this: The innermost box is your content. Wrapping
 that is a box called padding. Next, there is the border. The border separates

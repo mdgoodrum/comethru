@@ -125,7 +125,7 @@ export default EventDetail = (props) => {
     const endTime = parseTime(event.end_time)
 
     return (
-        <View style={styles.content}>
+        <View style={styles.page}>
             <SafeAreaView style={styles.container}>
                 <ScrollView style={styles.content}>
                     <View style={styles.imageContainer}>
@@ -140,7 +140,7 @@ export default EventDetail = (props) => {
 
                     <Text style={styles.location}>{venue.name}</Text>
                     <InterestToggle 
-                    eventId={eventId}
+                      eventId={eventId}
                     />
 
                     <Text style={styles.descriptionHeader}>Details</Text>
@@ -150,8 +150,8 @@ export default EventDetail = (props) => {
                         </Markdown>
                     </View>
                 </ScrollView>
-                <Navbar />
             </SafeAreaView>
+            <Navbar />
         </View>
     );
 }
@@ -178,10 +178,17 @@ const rawStyles = {
 }
 
 const styles = StyleSheet.create({
+    page: {
+        flex: 1,
+        flexDirection: 'column',
+    },
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+    },
     content: {
         flex: 1,
         flexDirection: 'column',
-        minHeight: '92%'
     },
     description: {
         textAlign: 'left',
@@ -254,5 +261,5 @@ const styles = StyleSheet.create({
     },
     checkIcon: {
         paddingLeft: '2%'
-    }
+    },
 });
