@@ -33,7 +33,7 @@ export default Home = (props) => {
 
     return (
         <View>
-            <SafeAreaView style={styles.content}>
+            <SafeAreaView style={styles.safeArea}>
                 <View>
                     <ScrollView style={styles.cardListContainer}>
                         <CardList />
@@ -70,13 +70,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: BackgroundGray,
     },
-    content: {
-        minHeight: '92%',
+    safeArea: {
+        height: '92%',
     },
     cardListContainer: {
         marginLeft: 10,
         marginRight: 10,
         marginTop: 20,
+        height: '88%' // @spader this doesnt look great but at least makes mike's buttons visible
     },
     buttonContainer: {
         display: 'flex',
