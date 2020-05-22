@@ -16,12 +16,20 @@ export default Navbar = props => {
   const onPressDrawer = () => {
     navigation.openDrawer()
   }
+
+  const onPressHome = () => {
+    console.log('press')
+    navigation.navigate('Events')
+  }
+
   return (
     <View style={styles.navbar}>
       <TouchableOpacity onPress={onPressDrawer}>
         <Icon name="menu" size={32} color={BackgroundGray} style={styles.menuIcon} />
       </TouchableOpacity>
-      <Icon name="home" size={28} color={BackgroundGray} style={styles.menuIcon} />
+      <TouchableOpacity onPress={onPressHome}>
+        <Icon name="home" size={28} color={BackgroundGray} style={styles.menuIcon} />
+      </TouchableOpacity>
     </View>
 
   )

@@ -101,7 +101,7 @@ export default CreateEvent = (props) => {
 
     return (
         <View style={styles.content}>
-            <SafeAreaView>
+            <SafeAreaView style={styles.safeArea}>
                 <View style={styles.textFieldsContainer}>
                     <Text style={styles.sectionTitle}>Create Event</Text>
                     <Text style={styles.texFieldLabel}>Event Name</Text>
@@ -165,6 +165,7 @@ export default CreateEvent = (props) => {
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
+            <Navbar />
         </View>
     )
 }
@@ -173,6 +174,9 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         height: '100%',
+    },
+    safeArea: {
+        height: '92%'
     },
     sectionTitle: {
         fontWeight: 'bold',

@@ -48,7 +48,7 @@ export default EditProfile = (props) => {
 
     return (
         <View style={styles.content}>
-            <SafeAreaView>
+            <SafeAreaView style={styles.safeArea}>
                 <View style={styles.textFieldsContainer}>
                     <Text style={styles.sectionTitle}>Edit Profile</Text>
                     <Text style={styles.texFieldLabel}>First Name</Text>
@@ -85,6 +85,7 @@ export default EditProfile = (props) => {
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
+            <Navbar />
         </View>
     )
 }
@@ -93,6 +94,9 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         height: '100%',
+    },
+    safeArea: {
+        height: '92%'
     },
     sectionTitle: {
         fontWeight: 'bold',

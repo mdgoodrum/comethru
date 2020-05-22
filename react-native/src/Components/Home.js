@@ -10,21 +10,23 @@ import CardList from './CardList';
 
 import { useDispatch, useSelector } from 'react-redux'
 import { updateEvents } from '../Store'
+import { useNavigation } from '@react-navigation/native';
 
 export default Home = (props) => {
     const events = useSelector(state => state.events)
+    const navigator = useNavigation()
     const dispatch = useDispatch()
 
     onPressCreateAddress = () => {
-        props.navigation.navigate('Create Address')
+        navigator.navigate('Create Address')
     }
 
     onPressCreateEvent = () => {
-        props.navigation.navigate('Create Event')
+        navigator.navigate('Create Event')
     }
 
     onPressCreateVenue = () => {
-        props.navigation.navigate('Create Venue')
+        navigator.navigate('Create Venue')
     }
 
     useEffect(() => fetchEvents(dispatch), [])

@@ -103,7 +103,7 @@ export default CreateAddress = (props) => {
 
     return (
         <View style={styles.content}>
-            <SafeAreaView>
+            <SafeAreaView style={styles.safeArea}>
                 <View style={styles.textFieldsContainer}>
                     <Text style={styles.sectionTitle}>Create Address</Text>
                     <Text style={styles.texFieldLabel}>Street Address</Text>
@@ -147,6 +147,7 @@ export default CreateAddress = (props) => {
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
+            <Navbar />
         </View>
     )
 }
@@ -155,6 +156,9 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         height: '100%',
+    },
+    safeArea: {
+        height: '92%'
     },
     sectionTitle: {
         fontWeight: 'bold',
