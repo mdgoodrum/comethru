@@ -15,10 +15,6 @@ export default Home = (props) => {
     const events = useSelector(state => state.events)
     const dispatch = useDispatch()
 
-    onPressEditProfile = () => {
-        props.navigation.navigate('Edit Profile')
-    }
-    
     onPressCreateAddress = () => {
         props.navigation.navigate('Create Address')
     }
@@ -35,19 +31,13 @@ export default Home = (props) => {
 
     return (
         <View>
-            <SafeAreaView>
+            <SafeAreaView style={styles.content}>
                 <View>
-                    <ScrollView style={styles.content}>
+                    <ScrollView style={styles.cardListContainer}>
                         <CardList />
                     </ScrollView>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity   
-                        style={styles.myButton}
-                        onPress={() => this.onPressEditProfile()}
-                        >
-                        <Text style={styles.buttonText}>Edit Profile</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity   
                         style={styles.myButton}
                         onPress={() => this.onPressCreateAddress()}
@@ -68,6 +58,7 @@ export default Home = (props) => {
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
+            <Navbar />
         </View>
     );
 }
@@ -78,6 +69,9 @@ const styles = StyleSheet.create({
         backgroundColor: BackgroundGray,
     },
     content: {
+        minHeight: '92%',
+    },
+    cardListContainer: {
         marginLeft: 10,
         marginRight: 10,
         marginTop: 20,

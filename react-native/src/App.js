@@ -25,7 +25,6 @@ const ContentStack = createStackNavigator()
 const ContentStackComponent = props => (
   <ContentStack.Navigator initialRouteName='Events' headerMode='none'>
     <ContentStack.Screen name='Events' component={Home} />
-    <ContentStack.Screen name='Edit Profile' component={EditProfile} />
     <ContentStack.Screen name='Create Address' component={CreateAddress} />
     <ContentStack.Screen name='Create Event' component={CreateEvent} />
     <ContentStack.Screen name='Create Venue' component={CreateVenue} />
@@ -33,23 +32,13 @@ const ContentStackComponent = props => (
   </ContentStack.Navigator>
 )
 
-// Some fake menu components
-const Booth = props => {
-  return <Text>Booth</Text>
-}
-
-const Louie = props => {
-  return <Text>Louie</Text>
-}
-
 // This is the main navigator for the app once logged in. 
 // It can go to menu options (e.g. Settings), or it can bring you to your home screen, which navigates with its own stack
 const AfterLoginStack = createDrawerNavigator()
 const AfterLoginStackComponent = props => (
   <AfterLoginStack.Navigator initialRouteName='Home'>
-    <AfterLoginStack.Screen name='Louie' component={Louie} />
-    <AfterLoginStack.Screen name='Booth' component={Booth} />
     <AfterLoginStack.Screen name='Home' component={ContentStackComponent} />
+    <ContentStack.Screen name='Edit Profile' component={EditProfile} />
   </AfterLoginStack.Navigator>
 
 )

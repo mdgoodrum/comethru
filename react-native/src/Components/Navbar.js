@@ -14,8 +14,7 @@ export default Navbar = props => {
   const navigation = useNavigation()
   
   const onPressDrawer = () => {
-    console.log('press')
-    navigation.navigate('DrawerOpen')
+    navigation.openDrawer()
   }
   return (
     <View style={styles.navbar}>
