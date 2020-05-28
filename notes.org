@@ -144,8 +144,6 @@ accurate to say THE caller's this pointer. But it makes enough sense.
 
 It's okay to send passwords over plaintext if you're using HTTPS:
 https://security.stackexchange.com/questions/110415/is-it-ok-to-send-plain-text-password-over-https
-
-
 ** stuff i had to do on aws
 sudo apt-get install libpq-dev
 sudo apt-get install python3-pip
@@ -166,7 +164,8 @@ sudo ufw allow OpenSSH
 sudo ufw allow 8000
 sudo ufw enable
 
-Add a custom TCP rule on AWS to inbound allow traffic on port 8000, so that our server can...serve.
+Add a custom TCP rule on AWS to inbound allow traffic on port 8000, so that our
+server can...serve.
 Make a systemd service to expose a socket for gunicorn
 Make a systemd service to run gunicorn as a daemon and bind to that socket
 
@@ -174,16 +173,63 @@ Add nginx configuration to proxy for gunicorn
 
 sudo ufw delete allow 800
 sudo ufw allow 'Nginx Full'
-** hmm
-- i want to be able to swipe backward to return to the previous page
-- i need some global information. 
-  - what user is currently logged in?
+** ramble
+- Go out and talk to vendors
+- Allow vendors to scan QR codes to redeem free stuff
+- Make a QR code that will bring people to download the app
+- Write the code that will distribute the free stuff
+  - Users have to be notified
+  - Tables have to be created + updated
+- Implement the above code on a server somewhere (figure out how to do this)
+- Flesh out the UX for making events -- polish
+- Let users pick what tags they are interested in
+  - What tags to we present them? Popular ones? Ones we choose?
 
-what about, say, the list of events. where does that get stored? you want to
-know what the user has already seen, you want to know where you were in the
-pagination. if the EventView goes away, that stuff isn't going to persist...will
-it? 
+*** What kinds of events are we going to target at first?
+One-off discounts -- not necessarily events:
+Bars. Show up and get a free shot.
+Movie theaters. 
+Restaurants. 
+Exercise studios. 
+Festivals. (e.g. BBQ, Beer, Ramen -- those kind of deals)
 
-alright, really all i need to keep track of globally is the user, their auth
-token. if popping the history preserves props, problem solved. the EventView can
-store all the events and shit we have already seen. just push and pop. 
+*** How are events going to be added?
+If vendors can add their own events, you might run into the problem of low
+quality events flooding the platform. If you curate all events, there might be
+too much friction to add an event. If they can add, you also have to worry about
+the game theory of it. What's to stop a bar from adding ten events that are very
+similar to make them more likely to show up? There needs to be some kind of
+manual intervention. Totally manual is too hard. Just lay some loose guidelines
+and fix it when people abuse it.
+
+*** How are we going to get people to download our app?
+Post flyers with QR codes. 
+Give them something free for signing up. 
+Focus on affluent but not rich areas. Around GT, Atlantic Station, Buckhead,
+Decatur. 
+Internet ads. 
+Give them free stuff for referring other people. Make it dead simple to do. Give
+them a punch card. Let them choose from a set after they fill it. Give them
+something free after someone they refer checks in somewhere. 
+Give them free stuff for checking in places themself. 
+
+*** What's our algorithm for distributing free shit?
+When there are very few users and very few events, it doesn't really matter. A
+good, easy idea to future-proof this is to have the user select a few things
+they're interested in when they sign up, and only send them events from those
+categories. 
+
+*** How do people redeem their free shit?
+When you get something, you get a QR code to redeem it. Vendors have a screen on
+their app where they can scan the QR codes. Once it's scanned, it won't scan
+anymore. This even works in bars or other busy places -- if you order a shot,
+you'd have to pay anyway. Instead of cashing you out, the bartender just has to
+whip out their phone and scan a QR code. 
+
+*** How do people use the app when they're looking for something to do?
+If the app is just free shit, there's no reason to _use_ the app. If we also
+have events on the app that people can check out, it might be unclear what the
+app is for. 
+
+Make it more likely for people to get stuff if they mark themselves as
+interested. 
