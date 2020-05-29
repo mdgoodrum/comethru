@@ -1,10 +1,24 @@
 * Features
 ** MVP
+
 These are actual features
 - Compile it on Android and fix discrepancies
+- QR codes
+  - Bring in something to scan QR codes
+  - Selective logic for who can scan QR codes for certain promos
+  - Make QR codes out of promos
+  - Make QR codes to download the app
+- Push notifications
+- Implement promos
+  - Design + make table
+  - Write the script for distributing promos
+  - UI for viewing received promos
+    - Push notifications
+  - Sketch of architecture running the job
 - Filters
   - Basic association between user and filters
   - Allow user to modify their feed with temporary filters
+- Fix the UI iteratively
 - Add push notifications
 - A system for people to redeem their free shit
 - A way to check in at events. Preferably automatically.
@@ -15,6 +29,8 @@ These are actual features
 - Security!
   - Lock down the API from random HTTP requests
   - Rate limit the API
+  - Lock down the DB and API from the Russians and Chinese
+- Logging
 
 These are things that are done halfway
 - Make the nav bar work
@@ -174,16 +190,7 @@ Add nginx configuration to proxy for gunicorn
 sudo ufw delete allow 800
 sudo ufw allow 'Nginx Full'
 ** ramble
-- Go out and talk to vendors
-- Allow vendors to scan QR codes to redeem free stuff
-- Make a QR code that will bring people to download the app
-- Write the code that will distribute the free stuff
-  - Users have to be notified
-  - Tables have to be created + updated
-- Implement the above code on a server somewhere (figure out how to do this)
-- Flesh out the UX for making events -- polish
-- Let users pick what tags they are interested in
-  - What tags to we present them? Popular ones? Ones we choose?
+Somewhat prioritized list:
 
 *** What kinds of events are we going to target at first?
 One-off discounts -- not necessarily events:
@@ -233,3 +240,16 @@ app is for.
 
 Make it more likely for people to get stuff if they mark themselves as
 interested. 
+** talkin
+Main split is between events and places. You don't have to sign up for promos.
+
+We need to write something to scrape events until we have enough money to hire 
+someone. For places, we'll do it by hand.
+
+Events are going to be added by some admin interface on the app. And then we'll
+just rate limit them. Each user or venue can only have a certain number of events
+per time frame.
+- How do you lock events -- by user or by venue? If by user, you need to make sure
+  that each restaurant only has one account. If by venue, you need to make sure 
+  only certain people can create stuff for that venue.
+
