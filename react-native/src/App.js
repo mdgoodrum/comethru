@@ -17,7 +17,7 @@ import EditProfile from './Components/EditProfile'
 import CreateAddress from './Components/CreateAddress'
 import CreateEvent from './Components/CreateEvent'
 import CreateVenue from './Components/CreateVenue'
-import { DrawerComponent } from './Components/Navbar'
+import QRScanner from './Components/QRScanner'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // Navigator for content screens. This is where people will spend most of their time.
@@ -39,6 +39,7 @@ const AfterLoginStackComponent = props => (
   <AfterLoginStack.Navigator initialRouteName='Home'>
     <AfterLoginStack.Screen name='Home' component={ContentStackComponent} />
     <ContentStack.Screen name='Edit Profile' component={EditProfile} />
+    <ContentStack.Screen name='scan a fuckin code' component={QRScanner} />
   </AfterLoginStack.Navigator>
 
 )

@@ -38,5 +38,9 @@ target 'comethru' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'react-native-spinkit', :path => '../node_modules/react-native-spinkit'
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
+
   use_native_modules!
 end
